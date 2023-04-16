@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using Cysharp.Threading;
 using Cysharp.Threading.Tasks;
 
 namespace Sakyawira.UI
@@ -10,12 +9,12 @@ namespace Sakyawira.UI
         [SerializeField]
         private UIDocument _uiDocument;
 
-        public void UpdateDialogue(string dialogue)
+        public void UpdateDialogue(string dialogue, UniTaskCompletionSource dialogueCompletion)
         {
-            UpdateDialogueAsync(dialogue).Forget();
+            UpdateDialogueAsync(dialogue, dialogueCompletion).Forget();
         }
 
-        public async UniTask UpdateDialogueAsync(string dialogue)
+        public async UniTask UpdateDialogueAsync(string dialogue, UniTaskCompletionSource dialogueCompletion)
         {
             for (int i = 0; i <= dialogue.Length; i++)
             {
@@ -23,6 +22,7 @@ namespace Sakyawira.UI
                 _uiDocument.rootVisualElement.Q<Label>("Dialogue").text = currentText;
                 await UniTask.Delay(65);
             }
+            dialogueCompletion.TrySetResult();
         }
 
         public void UpdateCharacterName(string name)
