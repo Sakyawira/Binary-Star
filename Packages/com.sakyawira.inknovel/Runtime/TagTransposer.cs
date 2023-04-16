@@ -1,0 +1,67 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+namespace Sakyawira.InkNovel
+{
+    public enum TagID
+    {
+        CHARACTER_NAME = 0,
+        EMOTION = 1
+    }
+
+    public class TagTransposer : MonoBehaviour
+    {
+        [SerializeField]
+        private UnityEvent<string> _characterNameEvent;
+        [SerializeField]
+        private UnityEvent _noCharacterNameEvent;
+        [SerializeField]
+        private UnityEvent<Sprite> _playerCharacterSpriteEvent;
+        [SerializeField]
+        private UnityEvent<Sprite> _nonPlayerCharacterSpriteEvent;
+        [SerializeField]
+        private CharacterDatabase _characterDatabase;
+
+        private const string _playerName = "FAE";
+
+        public void TransposeTags(List<string> tags)
+        {
+            var dict = new Dictionary<TagID, string>();
+            for (int i = 0; i < tags.Count; i++)
+            {
+                dict[(TagID)i] = tags[i];
+            }
+            if (dict.ContainsKey(TagID.CHARACTER_NAME))
+            {
+                TransposeName(dict[TagID.CHARACTER_NAME]);
+                if (dict.ContainsKey(TagID.EMOTION))
+                {
+                    TransposeEmotion(dict[TagID.CHARACTER_NAME], Enum.Parse<Emotion>(dict[TagID.EMOTION]));
+                }
+            }
+            else
+            {
+                _noCharacterNameEvent.Invoke();
+            }
+        }
+
+        private void TransposeName(string tag)
+        {
+            _characterNameEvent.Invoke(tag);
+        }
+
+        private void TransposeEmotion(string name, Emotion emotion)
+        {
+            var sprite = _characterDatabase.GetSprite(name, emotion);
+            if (name == _playerName)
+            {
+                _playerCharacterSpriteEvent.Invoke(sprite);
+                return;
+            }
+            _nonPlayerCharacterSpriteEvent.Invoke(sprite);
+        }
+    }
+}

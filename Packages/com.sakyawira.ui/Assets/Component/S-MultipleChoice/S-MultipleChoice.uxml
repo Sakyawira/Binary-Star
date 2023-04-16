@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="S-Button" src="project://database/Packages/com.sakyawira.ui/Assets/Component/S-Button/S-Button.uxml?fileID=9197481963319205126&amp;guid=2dbcd8cbc0061498692d97541e9fa270&amp;type=3#S-Button" />
+    <Style src="project://database/Packages/com.sakyawira.ui/Assets/Component/S-MultipleChoice/S-MultipleChoice.uss?fileID=7433441132597879392&amp;guid=240c2502492954908add22f6d59062d3&amp;type=3#S-MultipleChoice" />
+    <ui:VisualElement name="Container" style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:VisualElement style="width: 620px; height: 330px; flex-grow: 1; max-width: 620px; max-height: 330px; justify-content: space-between;">
+            <ui:Instance template="S-Button" name="0" class="choice-button" style="width: 620px; height: auto; flex-grow: 1;" />
+            <ui:Instance template="S-Button" name="1" class="choice-button" style="width: 620px; height: auto; flex-grow: 1;" />
+            <ui:Instance template="S-Button" name="2" class="choice-button" style="width: 620px; height: auto; flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

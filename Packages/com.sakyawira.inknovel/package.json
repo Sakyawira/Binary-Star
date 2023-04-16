@@ -1,0 +1,9 @@
+{
+  "name": "com.sakyawira.inknovel",
+  "version": "0.1.0",
+  "displayName": "Sakyawira Ink Visual Novel",
+  "dependencies": {
+    "com.inklestudios.ink-unity-integration": "1.0.2"
+  },
+  "description": "A package consisting scripts to help the creation of Visual Novels using ink"
+}

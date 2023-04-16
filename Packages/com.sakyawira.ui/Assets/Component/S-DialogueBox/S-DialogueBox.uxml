@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Packages/com.sakyawira.ui/Assets/Component/S-DialogueBox/S-DialogueBox.uss?fileID=7433441132597879392&amp;guid=9612277f2568d4a1990055a7912edb79&amp;type=3#S-DialogueBox" />
+    <ui:VisualElement name="Container" class="s-dialogue-box-container">
+        <ui:VisualElement name="DialogueBox" class="s-dialogue-box">
+            <ui:VisualElement name="Labels" class="s-dialogue-box-text-container">
+                <ui:Label text="Fae" display-tooltip-when-elided="true" name="Name" style="flex-wrap: nowrap; margin-left: 0; font-size: 25px; -unity-font-style: bold; color: rgb(0, 0, 0); margin-top: 25px; display: none;" />
+                <ui:Label text="Hi my name is Fae!" display-tooltip-when-elided="true" name="Dialogue" class="s-dialogue-box-text" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

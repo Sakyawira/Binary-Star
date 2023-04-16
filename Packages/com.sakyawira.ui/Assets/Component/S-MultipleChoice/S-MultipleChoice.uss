@@ -1,0 +1,6 @@
+.choice-button {
+    height: 75px;
+    max-height: 90px;
+    font-size: 150px;
+    white-space: normal;
+}

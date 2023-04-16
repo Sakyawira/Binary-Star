@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Packages/com.sakyawira.ui/Assets/Component/S-Background/S-Background.uss?fileID=7433441132597879392&amp;guid=b9b479eed493c90418e69cbaa29156aa&amp;type=3#S-Background" />
+    <ui:VisualElement name="Sprite" class="backgroundImage" style="-unity-background-scale-mode: scale-and-crop;" />
+</ui:UXML>

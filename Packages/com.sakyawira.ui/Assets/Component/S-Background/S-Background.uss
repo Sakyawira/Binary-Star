@@ -1,0 +1,7 @@
+.backgroundImage {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Sprite/Background/cafe-by-badriel-anime-backgrounds-wallpapers-anime-background-anime-places.png?fileID=2800000&guid=ab961514076ba48478f65a9531308c41&type=3#cafe-by-badriel-anime-backgrounds-wallpapers-anime-background-anime-places');
+    -unity-background-scale-mode: scale-to-fit;
+    width: 1920px;
+    height: 1080px;
+}

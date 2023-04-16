@@ -1,0 +1,4 @@
+.s-button {
+    flex-grow: 1;
+    font-size: 25px;
+}
