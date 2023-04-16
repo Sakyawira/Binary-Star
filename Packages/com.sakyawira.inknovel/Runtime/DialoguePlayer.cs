@@ -22,7 +22,7 @@ namespace Sakyawira.InkNovel
         [SerializeField]
         private BackgroundChanger _background;
 
-        private void Awake()
+        private void Start()
         {
             _inkStory = new Story(_inkJson.text);
             _inkStory.BindExternalFunction("ChangeBackground", _background.ChangeBackground);

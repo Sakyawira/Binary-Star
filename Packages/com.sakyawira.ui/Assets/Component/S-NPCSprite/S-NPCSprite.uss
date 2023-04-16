@@ -1,0 +1,16 @@
+.s-npc-sprite-container {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.s-npc-sprite {
+    -unity-background-scale-mode: scale-and-crop;
+    flex-grow: 1;
+    width: 500px;
+    height: 500px;
+    max-width: 500px;
+    max-height: 500px;
+    align-items: center;
+    justify-content: center;
+}

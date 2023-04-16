@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UIElements;
-
+using Cysharp.Threading;
+using Cysharp.Threading.Tasks;
 
 namespace Sakyawira.UI
 {
@@ -14,7 +12,17 @@ namespace Sakyawira.UI
 
         public void UpdateDialogue(string dialogue)
         {
-            _uiDocument.rootVisualElement.Q<Label>("Dialogue").text = dialogue;
+            UpdateDialogueAsync(dialogue).Forget();
+        }
+
+        public async UniTask UpdateDialogueAsync(string dialogue)
+        {
+            for (int i = 0; i <= dialogue.Length; i++)
+            {
+                string currentText = dialogue.Substring(0, i);
+                _uiDocument.rootVisualElement.Q<Label>("Dialogue").text = currentText;
+                await UniTask.Delay(65);
+            }
         }
 
         public void UpdateCharacterName(string name)
