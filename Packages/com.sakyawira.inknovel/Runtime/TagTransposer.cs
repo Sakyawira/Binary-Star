@@ -25,7 +25,7 @@ namespace Sakyawira.InkNovel
         [SerializeField]
         private CharacterDatabase _characterDatabase;
 
-        private const string _playerName = "FAE";
+        private const string _playerName = "Aneska";
 
         public void TransposeTags(List<string> tags)
         {
@@ -40,6 +40,10 @@ namespace Sakyawira.InkNovel
                 if (dict.ContainsKey(TagID.EMOTION))
                 {
                     TransposeEmotion(dict[TagID.CHARACTER_NAME], Enum.Parse<Emotion>(dict[TagID.EMOTION]));
+                }
+                else
+                {
+                    TransposeEmotion(dict[TagID.CHARACTER_NAME], Emotion.NEUTRAL);
                 }
             }
             else

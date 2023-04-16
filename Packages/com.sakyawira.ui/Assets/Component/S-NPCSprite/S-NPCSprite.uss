@@ -1,7 +1,18 @@
 .s-npc-sprite-container {
     flex-grow: 1;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-bottom: 65px;
+    margin-right: 65px;
+}
+
+.s-npc-sprite-container-alt {
+    flex-grow: 1;
+    align-items: flex-start;
+    justify-content: flex-end;
+    margin-bottom: 65px;
+    margin-right: 0;
+    margin-left: 65px;
 }
 
 .s-npc-sprite {
@@ -13,4 +24,5 @@
     max-height: 500px;
     align-items: center;
     justify-content: center;
+    background-image: url('project://database/Assets/Data/Whale.PNG?fileID=2800000&guid=2f9b420922044f346897567d72563237&type=3#Whale');
 }

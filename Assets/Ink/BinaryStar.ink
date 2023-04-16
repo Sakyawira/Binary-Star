@@ -1,6 +1,17 @@
 EXTERNAL ChangeBackground(place, time)
 
-I don’t understand what he’s talking about so I redirected my attention towards filling out the paperwork. After filling all the datas needed, I put my signature on the paper.
-Okay - I see How it is!
+“Oh my god, what time is it for you?” #Aneska
+
+“It is 2 am here… our call was supposed to be at 11 pm. Have you just arrived at your place?” #Yuvan
+
+“Yeah, I’m so sorry - how are you though?” #Aneska
+
+“Terrible, depressed.” #Yuvan
+
+“....” #Aneska
+
+“I just really miss you. It’s been a while.” #Yuvan
+
+“I know - can I cuddle you to make it up?” #Aneska
 
 ->END
