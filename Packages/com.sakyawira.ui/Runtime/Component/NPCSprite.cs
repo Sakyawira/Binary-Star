@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -18,7 +18,6 @@ namespace Sakyawira.UI
 
         public void ChangeSprite(Sprite sprite)
         {
-            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").SetEnabled(true);
             _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").style.display = DisplayStyle.Flex;
             _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").style.backgroundImage = new StyleBackground(sprite);
         }
@@ -26,6 +25,11 @@ namespace Sakyawira.UI
         public void TurnOffCharacterImage()
         {
             _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").style.display = DisplayStyle.None;
+        }
+
+        public void Highlight() 
+        {
+            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").SetEnabled(true);
         }
 
         public void GreyOut()

@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Packages/com.sakyawira.ui/Assets/Component/S-NPCSprite/S-NPCSprite.uss?fileID=7433441132597879392&amp;guid=c9bdbd0f8ff7b434d89df79ba95c0dbb&amp;type=3#S-NPCSprite" />
-    <ui:VisualElement name="Container" class="s-npc-sprite-container-alt">
-        <ui:VisualElement name="Sprite" class="s-npc-sprite" />
+    <ui:VisualElement name="Container" picking-mode="Ignore" class="s-npc-sprite-container-alt">
+        <ui:Button name="Sprite" class="s-npc-sprite" />
     </ui:VisualElement>
 </ui:UXML>

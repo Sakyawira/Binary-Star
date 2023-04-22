@@ -24,10 +24,14 @@ namespace Sakyawira.InkNovel
         private UnityEvent<Sprite> _nonPlayerCharacterSpriteEvent;
         [SerializeField]
         private CharacterDatabase _characterDatabase;
+        [SerializeField]
+        private UnityEvent _npcDialogueEndEvent;
+        [SerializeField]
+        private UnityEvent _playerDialogueEndEvent;
 
         private const string _playerName = "Aneska";
 
-        public void TransposeTags(List<string> tags)
+        public UnityEvent TransposeTags(List<string> tags)
         {
             var dict = new Dictionary<TagID, string>();
             for (int i = 0; i < tags.Count; i++)
@@ -45,10 +49,16 @@ namespace Sakyawira.InkNovel
                 {
                     TransposeEmotion(dict[TagID.CHARACTER_NAME], Emotion.NEUTRAL);
                 }
+                if (dict[TagID.CHARACTER_NAME] == _playerName)
+                {
+                    return _playerDialogueEndEvent;
+                }
+                return _npcDialogueEndEvent;
             }
             else
             {
                 _noCharacterNameEvent.Invoke();
+                return null;
             }
         }
 

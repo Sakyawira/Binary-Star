@@ -1,0 +1,14 @@
+{
+    "name": "com.sakyawira.interaction",
+    "rootNamespace": "Sakyawira.Interaction",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

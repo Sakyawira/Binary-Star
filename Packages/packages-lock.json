@@ -22,6 +22,12 @@
         "com.inklestudios.ink-unity-integration": "1.0.2"
       }
     },
+    "com.sakyawira.interaction": {
+      "version": "file:com.sakyawira.interaction",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.sakyawira.ui": {
       "version": "file:com.sakyawira.ui",
       "depth": 0,

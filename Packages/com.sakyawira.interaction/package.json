@@ -1,0 +1,8 @@
+{
+  "name": "com.sakyawira.interaction",
+  "version": "0.1.0",
+  "displayName": "Sakyawira Interaction",
+  "dependencies": {
+  },
+  "description": "A package consisting scripts to help connecting different type of player inputs and events"
+}

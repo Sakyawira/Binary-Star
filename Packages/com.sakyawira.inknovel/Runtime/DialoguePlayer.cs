@@ -24,17 +24,21 @@ namespace Sakyawira.InkNovel
 
         private UniTaskCompletionSource _dialogueEventCompletion;
 
+        [SerializeField]
+        private UnityEvent _gameStartEvent;
+
         private void Start()
         {
             _inkStory = new Story(_inkJson.text);
             _inkStory.BindExternalFunction("ChangeBackground", _background.ChangeBackground);
+            InvokeContinue();
         }
 
-        private async void Update()
+        public void InvokeContinue()
         {
-            if (Input.GetKeyDown(KeyCode.Space) && _dialogueEventCompletion == null)
+            if (_dialogueEventCompletion == null)
             {
-                await Continue();
+                Continue().Forget();
             }
         }
 
@@ -45,9 +49,10 @@ namespace Sakyawira.InkNovel
                 _dialogueEventCompletion = new UniTaskCompletionSource();
                 string dialogue = _inkStory.Continue();
                 Debug.Log(dialogue);
-                _tagTransposer.TransposeTags(_inkStory.currentTags);
+                var dialogueEndEvent = _tagTransposer.TransposeTags(_inkStory.currentTags);
                 _dialogueEvent.Invoke(dialogue, _dialogueEventCompletion);
                 await _dialogueEventCompletion.Task;
+                dialogueEndEvent?.Invoke();
                 _dialogueEventCompletion = null;
             }
             else
