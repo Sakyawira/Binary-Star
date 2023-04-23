@@ -28,6 +28,8 @@ namespace Sakyawira.InkNovel
         private UnityEvent _npcDialogueEndEvent;
         [SerializeField]
         private UnityEvent _playerDialogueEndEvent;
+        [SerializeField]
+        private bool _transposeName = false;
 
         private const string _playerName = "Aneska";
 
@@ -64,7 +66,10 @@ namespace Sakyawira.InkNovel
 
         private void TransposeName(string tag)
         {
-            _characterNameEvent.Invoke(tag);
+            if (_transposeName)
+            {
+                _characterNameEvent.Invoke(tag);
+            }
         }
 
         private void TransposeEmotion(string name, Emotion emotion)

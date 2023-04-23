@@ -666,6 +666,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _background: {fileID: 220916340}
+  _gameStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1548028472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,6 +796,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _transposeName: 0
 --- !u!1 &1805914145
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,7 +806,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1805914147}
-  - component: {fileID: 1805914146}
   - component: {fileID: 1805914148}
   m_Layer: 5
   m_Name: DialogueBox
@@ -811,22 +814,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1805914146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805914145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 9e1febeb3e4f4674bb154fd2646045b6, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 7b141550daacc4a2789f4b706eee5a86, type: 3}
-  m_SortingOrder: 0
 --- !u!4 &1805914147
 Transform:
   m_ObjectHideFlags: 0
@@ -854,4 +841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7383ee8edd3644e07bee77bae395ec44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiDocument: {fileID: 1805914146}
+  _currentDocument: {fileID: 0}
+  _shiftedDocument: {fileID: 0}
+  _dialogueBoxAsset: {fileID: 9197481963319205126, guid: 7b141550daacc4a2789f4b706eee5a86, type: 3}
+  _panelSettings: {fileID: 11400000, guid: 9e1febeb3e4f4674bb154fd2646045b6, type: 2}

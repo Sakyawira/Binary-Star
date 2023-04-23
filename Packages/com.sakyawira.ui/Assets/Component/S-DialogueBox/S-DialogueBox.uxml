@@ -4,7 +4,7 @@
         <ui:VisualElement name="DialogueBox" class="s-dialogue-box">
             <ui:VisualElement name="Labels" class="s-dialogue-box-text-container">
                 <ui:Label text="Fae" display-tooltip-when-elided="true" name="Name" style="flex-wrap: nowrap; margin-left: 0; font-size: 25px; -unity-font-style: bold; color: rgb(0, 0, 0); margin-top: 25px; display: none;" />
-                <ui:Label text="Hi my name is Fae!" display-tooltip-when-elided="true" name="Dialogue" class="s-dialogue-box-text" />
+                <ui:Label display-tooltip-when-elided="true" name="Dialogue" class="s-dialogue-box-text" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
