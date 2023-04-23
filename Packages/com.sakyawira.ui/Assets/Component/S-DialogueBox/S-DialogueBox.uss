@@ -27,7 +27,7 @@
     margin-left: 0;
     font-size: 39px;
     -unity-font-style: normal;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     margin-top: 25px;
     flex-grow: 1;
     white-space: normal;

@@ -10,7 +10,7 @@ namespace Sakyawira.InkNovel
         [SerializeField]
         private List<Character> _characterList;
 
-        public Sprite GetSprite(string characterName, Emotion emotion)
+        public List<Sprite> GetSprite(string characterName, Emotion emotion)
         {
             return _characterList.Where(x => x.Name == characterName).First().GetSprite(emotion);
         }

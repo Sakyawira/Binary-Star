@@ -245,6 +245,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDocument: {fileID: 462171166}
+  _animate: 1
+  _sprites:
+  - {fileID: 21300000, guid: 781a1a55c8ff0f5498c80ed9cebae79a, type: 3}
+  - {fileID: 21300000, guid: c2f8d93f69920064dac37eb05d1d51b3, type: 3}
+  - {fileID: 21300000, guid: 7ea63f95065314f45b252a5f91858cde, type: 3}
+  - {fileID: 21300000, guid: ce561ac6875b8d042a156088b63f20e2, type: 3}
+  - {fileID: 21300000, guid: dc4f3fc236203ae459fe38922db17db1, type: 3}
+  - {fileID: 21300000, guid: 04075fb32c64d914eaaa704712267008, type: 3}
+  - {fileID: 21300000, guid: e672e31d31b0ad640802a43ba6196bb2, type: 3}
+  - {fileID: 21300000, guid: df0063d45c7322f4a9e4ccae88295d75, type: 3}
 --- !u!114 &462171166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +284,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &674949896
 GameObject:
@@ -462,8 +472,8 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0.09803922, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -558,7 +568,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1364844259
 MonoBehaviour:
@@ -573,6 +583,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDocument: {fileID: 1364844257}
+  _animate: 1
+  _sprites:
+  - {fileID: 21300000, guid: d8306c81220c6794e8c3f54b8ec0c1a1, type: 3}
+  - {fileID: 21300000, guid: a43250bdfa6a5fe42a7a4a0abb51cf7c, type: 3}
+  - {fileID: 21300000, guid: d0e950b5eabb24a42a2eaaace242b0f7, type: 3}
+  - {fileID: 21300000, guid: 162bf56f7c90d30428dd65bdaa439958, type: 3}
+  - {fileID: 21300000, guid: 85f6ef4dff3aa854790395260f528569, type: 3}
+  - {fileID: 21300000, guid: 7d2f8e3f04d336d4d84d7dcce93fd30b, type: 3}
+  - {fileID: 21300000, guid: d4b31af5a3d51614b911114646e84f67, type: 3}
+  - {fileID: 21300000, guid: 74d150b351a89744cbd3c88536150958, type: 3}
 --- !u!1 &1548028469
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +736,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 462171165}
         m_TargetAssemblyTypeName: Sakyawira.UI.NPCSprite, com.sakyawira.ui
-        m_MethodName: ChangeSprite
+        m_MethodName: ChangeSpriteSet
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -743,7 +763,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1364844259}
         m_TargetAssemblyTypeName: Sakyawira.UI.NPCSprite, com.sakyawira.ui
-        m_MethodName: ChangeSprite
+        m_MethodName: ChangeSpriteSet
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -19,9 +19,9 @@ namespace Sakyawira.InkNovel
         [SerializeField]
         private UnityEvent _noCharacterNameEvent;
         [SerializeField]
-        private UnityEvent<Sprite> _playerCharacterSpriteEvent;
+        private UnityEvent<List<Sprite>> _playerCharacterSpriteEvent;
         [SerializeField]
-        private UnityEvent<Sprite> _nonPlayerCharacterSpriteEvent;
+        private UnityEvent<List<Sprite>> _nonPlayerCharacterSpriteEvent;
         [SerializeField]
         private CharacterDatabase _characterDatabase;
         [SerializeField]

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Sakyawira.InkNovel
 {
@@ -15,13 +16,13 @@ namespace Sakyawira.InkNovel
     public class Character : ScriptableObject
     {
         public string Name;
-        public Sprite Neutral;
-        public Sprite Angry;
-        public Sprite Happy;
-        public Sprite Joy;
-        public Sprite Sad;
+        public List<Sprite> Neutral;
+        public List<Sprite> Angry;
+        public List<Sprite> Happy;
+        public List<Sprite> Joy;
+        public List<Sprite> Sad;
 
-        public Sprite GetSprite(Emotion emotion)
+        public List<Sprite> GetSprite(Emotion emotion)
         {
             switch (emotion)
             {
