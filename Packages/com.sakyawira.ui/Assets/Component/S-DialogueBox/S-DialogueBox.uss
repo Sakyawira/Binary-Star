@@ -32,6 +32,7 @@
     flex-grow: 1;
     white-space: normal;
     -unity-text-align: upper-center;
+    -unity-font-definition: url('project://database/Assets/Fonts%20&%20Materials/Exo2-VariableFont_wght%20SDF.asset?fileID=11400000&guid=57fd4bb8508c4f24d83cc149090d37e6&type=2#Exo2-VariableFont_wght SDF');
 }
 
 .s-dialogue-box-text-container {
