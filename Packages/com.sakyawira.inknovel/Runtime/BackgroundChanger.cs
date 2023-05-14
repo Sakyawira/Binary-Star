@@ -9,7 +9,7 @@ namespace Sakyawira.InkNovel
     public class BackgroundChanger : MonoBehaviour
     {
         [SerializeField]
-        private UnityEvent<Sprite> _changeBackgroundEvent;
+        private UnityEvent<List<Sprite>> _changeBackgroundEvent;
 
         [SerializeField]
         private BackgroundDatabase _backgroundDatabase;
@@ -23,16 +23,8 @@ namespace Sakyawira.InkNovel
 
         public string ChangeBackgroundImpl(string place, string time)
         {
-            try
-            {
-                var sprite = _backgroundDatabase.GetSprite(place, Enum.Parse<Time>(time.ToUpper()));
-                _changeBackgroundEvent.Invoke(sprite);
-                return "";
-            }
-            catch(Exception e)
-            {
-
-            }
+            var sprite = _backgroundDatabase.GetSprite(place, Enum.Parse<Time>(time.ToUpper()));
+            _changeBackgroundEvent.Invoke(sprite);
             return "";
         }
     }

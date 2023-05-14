@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 220916340}
   - component: {fileID: 220916339}
   m_Layer: 5
-  m_Name: Background
+  m_Name: Aneska Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +171,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &220916339
 MonoBehaviour:
@@ -186,6 +186,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDocument: {fileID: 220916337}
+  _animate: 0
+  _sprites: []
 --- !u!114 &220916340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +205,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 220916339}
         m_TargetAssemblyTypeName: Sakyawira.UI.BackgroundSprite, com.sakyawira.ui
-        m_MethodName: ChangeSprite
+        m_MethodName: ChangeSpriteSet
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -271,7 +273,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 9e1febeb3e4f4674bb154fd2646045b6, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: bd74c603b747f5246b33cb23ab289c9e, type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 1
 --- !u!4 &462171167
 Transform:
   m_ObjectHideFlags: 0
@@ -360,7 +362,7 @@ GameObject:
   - component: {fileID: 761942044}
   - component: {fileID: 761942043}
   m_Layer: 0
-  m_Name: 0_Base
+  m_Name: World Position Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -431,7 +433,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &806215401
 GameObject:
@@ -492,7 +494,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &806215404
 MonoBehaviour:
@@ -639,7 +641,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 9e1febeb3e4f4674bb154fd2646045b6, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 2d1f364443d6743cd9e34f6e923d7937, type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 1
 --- !u!4 &1364844258
 Transform:
   m_ObjectHideFlags: 0
@@ -653,7 +655,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1364844259
 MonoBehaviour:
@@ -710,7 +712,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1548028471
 MonoBehaviour:
@@ -771,7 +773,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _background: {fileID: 220916340}
+  _aneskaBackground: {fileID: 220916340}
+  _yuvanBackground: {fileID: 1991112658}
   _gameStartEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -951,3 +954,96 @@ MonoBehaviour:
   _shiftedDocument: {fileID: 0}
   _dialogueBoxAsset: {fileID: 9197481963319205126, guid: 7b141550daacc4a2789f4b706eee5a86, type: 3}
   _panelSettings: {fileID: 11400000, guid: 9e1febeb3e4f4674bb154fd2646045b6, type: 2}
+--- !u!1 &1991112656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1991112660}
+  - component: {fileID: 1991112659}
+  - component: {fileID: 1991112658}
+  - component: {fileID: 1991112657}
+  m_Layer: 5
+  m_Name: Yuvan Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1991112657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991112656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8db3f4bafe87167479591037dbd43f1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDocument: {fileID: 1991112659}
+  _animate: 0
+  _sprites: []
+--- !u!114 &1991112658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991112656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a17fd83b01575b4d83ad77b6065560b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _changeBackgroundEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1991112657}
+        m_TargetAssemblyTypeName: Sakyawira.UI.BackgroundSprite, com.sakyawira.ui
+        m_MethodName: ChangeSpriteSet
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _backgroundDatabase: {fileID: 11400000, guid: b2fc684d8004e3940bfb2120ebcd1a58, type: 2}
+--- !u!114 &1991112659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991112656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 9e1febeb3e4f4674bb154fd2646045b6, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: b50711ebc8f42f348ac40f490d8bcc7d, type: 3}
+  m_SortingOrder: 0
+--- !u!4 &1991112660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991112656}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

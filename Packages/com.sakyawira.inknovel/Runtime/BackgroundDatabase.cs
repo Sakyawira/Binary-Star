@@ -11,7 +11,7 @@ namespace Sakyawira.InkNovel
         [SerializeField]
         private List<Background> _backgroundList;
 
-        public Sprite GetSprite(string place, Time time)
+        public List<Sprite> GetSprite(string place, Time time)
         {
             return _backgroundList.Where(x => x.Name == place).First().GetSprite(time);
         }

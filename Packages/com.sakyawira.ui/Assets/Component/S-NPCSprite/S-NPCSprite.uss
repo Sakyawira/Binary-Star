@@ -2,17 +2,17 @@
     flex-grow: 1;
     align-items: flex-end;
     justify-content: flex-end;
-    margin-bottom: 65px;
-    margin-right: 65px;
+    margin-bottom: 260px;
+    margin-right: 360px;
 }
 
 .s-npc-sprite-container-alt {
     flex-grow: 1;
     align-items: flex-start;
     justify-content: flex-end;
-    margin-bottom: 65px;
+    margin-bottom: 260px;
     margin-right: 0;
-    margin-left: 65px;
+    margin-left: 360px;
 }
 
 .s-npc-sprite {
@@ -30,17 +30,17 @@
 }
 
 .s-npc-sprite-container-alt > .s-npc-sprite {
-    width: 500px;
-    height: 500px;
-    max-width: 500px;
-    max-height: 500px;
+    width: 325px;
+    height: 325px;
+    max-width: 325px;
+    max-height: 325px;
 }
 
 .s-npc-sprite-container > .s-npc-sprite {
-    width: 500px;
-    height: 500px;
-    max-width: 500px;
-    max-height: 500px;
+    width: 325px;
+    height: 325px;
+    max-width: 325px;
+    max-height: 325px;
 }
 
 .s-npc-sprite:disabled {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Sakyawira.InkNovel
 {
@@ -13,11 +14,11 @@ namespace Sakyawira.InkNovel
     public class Background : ScriptableObject
     {
         public string Name;
-        public Sprite Day;
-        public Sprite Twilight;
-        public Sprite Evening;
+        public List<Sprite> Day;
+        public List<Sprite> Twilight;
+        public List<Sprite> Evening;
 
-        public Sprite GetSprite(Time time)
+        public List<Sprite> GetSprite(Time time)
         {
             switch (time)
             {

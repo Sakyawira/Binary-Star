@@ -20,7 +20,9 @@ namespace Sakyawira.InkNovel
         [SerializeField]
         private UnityEvent _makeChoiceEvent;
         [SerializeField]
-        private BackgroundChanger _background;
+        private BackgroundChanger _aneskaBackground;
+        [SerializeField]
+        private BackgroundChanger _yuvanBackground;
 
         private UniTaskCompletionSource _dialogueEventCompletion;
 
@@ -30,7 +32,8 @@ namespace Sakyawira.InkNovel
         private void Start()
         {
             _inkStory = new Story(_inkJson.text);
-            _inkStory.BindExternalFunction("ChangeBackground", _background.ChangeBackground);
+            _inkStory.BindExternalFunction("ChangeBackgroundA", _aneskaBackground.ChangeBackground);
+            _inkStory.BindExternalFunction("ChangeBackgroundY", _yuvanBackground.ChangeBackground);
             InvokeContinue();
         }
 
