@@ -13,6 +13,8 @@ namespace Sakyawira.UI
         private bool _animate = false;
         [SerializeField]
         private List<Sprite> _sprites;
+        [SerializeField]
+        private Sprite _sprite;
 
         private int _animationIndex = 0;
 
@@ -20,19 +22,19 @@ namespace Sakyawira.UI
         public void Start()
         {
             GreyOut();
-            if (_animate)
-            {
-                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").schedule.Execute(AnimateSprite).Every(250);
-            }
+            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").schedule.Execute(AnimateSprite).Every(250);
         }
 
         private void AnimateSprite(TimerState timerState)
         {
-            ChangeSprite(_sprites[_animationIndex]);
-            _animationIndex++;
-            if (_animationIndex == _sprites.Count)
+            if (_animate)
             {
-                _animationIndex = 0;
+                ChangeSprite(_sprites[_animationIndex]);
+                _animationIndex++;
+                if (_animationIndex == _sprites.Count)
+                {
+                    _animationIndex = 0;
+                }
             }
         }
 
@@ -42,10 +44,12 @@ namespace Sakyawira.UI
             _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").style.backgroundImage = new StyleBackground(sprite);
         }
 
-        public void ChangeSpriteSet(List<Sprite> sprites)
+        public void ChangeSpriteSet(List<Sprite> sprites, Sprite singleSprite)
         {
+            _animate = true;
             _animationIndex = 0;
             _sprites = sprites;
+            _sprite = singleSprite;
         }
 
         public void TurnOffCharacterImage()
@@ -55,6 +59,8 @@ namespace Sakyawira.UI
 
         public void Highlight() 
         {
+            _animate = false;
+            ChangeSprite(_sprite);
             _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").SetEnabled(true);
         }
 

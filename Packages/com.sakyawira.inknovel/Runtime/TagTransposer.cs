@@ -19,9 +19,9 @@ namespace Sakyawira.InkNovel
         [SerializeField]
         private UnityEvent _noCharacterNameEvent;
         [SerializeField]
-        private UnityEvent<List<Sprite>> _playerCharacterSpriteEvent;
+        private UnityEvent<List<Sprite>, Sprite> _playerCharacterSpriteEvent;
         [SerializeField]
-        private UnityEvent<List<Sprite>> _nonPlayerCharacterSpriteEvent;
+        private UnityEvent<List<Sprite>, Sprite> _nonPlayerCharacterSpriteEvent;
         [SerializeField]
         private CharacterDatabase _characterDatabase;
         [SerializeField]
@@ -32,6 +32,12 @@ namespace Sakyawira.InkNovel
         private bool _transposeName = false;
 
         private const string _playerName = "Aneska";
+
+        private void Start()
+        {
+            _playerCharacterSpriteEvent.Invoke(_characterDatabase.GetSprites("Aneska", Emotion.ANGRY), _characterDatabase.GetSprite("Aneska", Emotion.ANGRY));
+            _nonPlayerCharacterSpriteEvent.Invoke(_characterDatabase.GetSprites("Yuvan", Emotion.ANGRY), _characterDatabase.GetSprite("Yuvan", Emotion.ANGRY));
+        }
 
         public UnityEvent TransposeTags(List<string> tags)
         {
@@ -74,13 +80,14 @@ namespace Sakyawira.InkNovel
 
         private void TransposeEmotion(string name, Emotion emotion)
         {
+            var sprites = _characterDatabase.GetSprites(name, emotion);
             var sprite = _characterDatabase.GetSprite(name, emotion);
             if (name == _playerName)
             {
-                _playerCharacterSpriteEvent.Invoke(sprite);
+                _playerCharacterSpriteEvent.Invoke(sprites, sprite);
                 return;
             }
-            _nonPlayerCharacterSpriteEvent.Invoke(sprite);
+            _nonPlayerCharacterSpriteEvent.Invoke(sprites, sprite);
         }
     }
 }

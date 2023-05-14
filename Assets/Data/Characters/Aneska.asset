@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Aneska
   m_EditorClassIdentifier: 
   Name: Aneska
+  SingleNeutral: {fileID: 21300000, guid: ae1c60f1052fe5c44ac1528a75c7641a, type: 3}
   Neutral:
   - {fileID: 21300000, guid: ae1c60f1052fe5c44ac1528a75c7641a, type: 3}
+  SingleAngry: {fileID: 21300000, guid: f2633ca25bec9d94487a1e77f1cb8538, type: 3}
   Angry:
   - {fileID: 21300000, guid: 781a1a55c8ff0f5498c80ed9cebae79a, type: 3}
   - {fileID: 21300000, guid: c2f8d93f69920064dac37eb05d1d51b3, type: 3}
@@ -24,6 +26,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 04075fb32c64d914eaaa704712267008, type: 3}
   - {fileID: 21300000, guid: e672e31d31b0ad640802a43ba6196bb2, type: 3}
   - {fileID: 21300000, guid: df0063d45c7322f4a9e4ccae88295d75, type: 3}
+  SingleHappy: {fileID: 21300000, guid: 56451023c4ebd2945a7538e211d3d813, type: 3}
   Happy:
   - {fileID: 21300000, guid: af251d314b753384ebc7bb5bb946873b, type: 3}
   - {fileID: 21300000, guid: 84a241360d848ad4798042cd40ba266f, type: 3}
@@ -33,7 +36,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d4617dba8954fe34585fe7651cafd18e, type: 3}
   - {fileID: 21300000, guid: 572c7da3d22ed0c43bfd1912bcd47882, type: 3}
   - {fileID: 21300000, guid: 060d438151dc27542b3ca7ad6d009e7c, type: 3}
+  SingleJoy: {fileID: 21300000, guid: 5739dc046ef020a4a978335b9b0df210, type: 3}
   Joy:
   - {fileID: 21300000, guid: 5e04444a0b56278469cc43b09139efb0, type: 3}
+  SingleSad: {fileID: 21300000, guid: 9ee1c2be61ab59340925293727f09661, type: 3}
   Sad:
   - {fileID: 21300000, guid: 9ee1c2be61ab59340925293727f09661, type: 3}
