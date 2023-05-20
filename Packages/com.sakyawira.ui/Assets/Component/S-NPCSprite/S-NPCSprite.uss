@@ -29,22 +29,24 @@
     border-bottom-color: rgba(0, 0, 0, 0);
 }
 
-.s-npc-sprite-container-alt > .s-npc-sprite {
-    width: 325px;
-    height: 325px;
-    max-width: 325px;
-    max-height: 325px;
-}
-
-.s-npc-sprite-container > .s-npc-sprite {
-    width: 325px;
-    height: 325px;
-    max-width: 325px;
-    max-height: 325px;
-}
-
 .s-npc-sprite:disabled {
-    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
-    color: rgba(255, 255, 255, 255);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
     opacity: 1;
+}
+
+.s-npc-sprite-start {
+    width: 650;
+    height: 650;
+    max-width: 650;
+    max-height: 650;
+}
+
+.s-npc-sprite-end {
+    width: 325px;
+    height: 325px;
+    max-width: 325px;
+    max-height: 325px;
+    transition-property: max-width, width, height, max-height;
+    transition-duration: 1s, 1s, 1s, 1s;
 }

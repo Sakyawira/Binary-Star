@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ink.Runtime;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
 namespace Sakyawira.InkNovel
 {
@@ -29,11 +30,18 @@ namespace Sakyawira.InkNovel
         [SerializeField]
         private UnityEvent _gameStartEvent;
 
+        public Func<string, string, string> ChangeBackground;
+
+        private void Awake()
+        {
+            ChangeBackground += _aneskaBackground.ChangeBackgroundImpl;
+            ChangeBackground += _yuvanBackground.ChangeBackgroundImpl;
+            _inkStory = new Story(_inkJson.text);
+            _inkStory.BindExternalFunction("ChangeBackground", ChangeBackground);
+        }
+
         private void Start()
         {
-            _inkStory = new Story(_inkJson.text);
-            _inkStory.BindExternalFunction("ChangeBackgroundA", _aneskaBackground.ChangeBackground);
-            _inkStory.BindExternalFunction("ChangeBackgroundY", _yuvanBackground.ChangeBackground);
             InvokeContinue();
         }
 

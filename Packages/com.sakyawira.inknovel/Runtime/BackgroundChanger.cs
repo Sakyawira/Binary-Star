@@ -14,13 +14,6 @@ namespace Sakyawira.InkNovel
         [SerializeField]
         private BackgroundDatabase _backgroundDatabase;
 
-        public Func<string, string, string> ChangeBackground;
-
-        public void Awake()
-        {
-            ChangeBackground += ChangeBackgroundImpl;
-        }
-
         public string ChangeBackgroundImpl(string place, string time)
         {
             var sprite = _backgroundDatabase.GetSprite(place, Enum.Parse<Time>(time.ToUpper()));

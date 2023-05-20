@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -36,6 +35,18 @@ namespace Sakyawira.UI
                     _animationIndex = 0;
                 }
             }
+        }
+        
+        public void ZoomIn()
+        {
+            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-npc-sprite-end");
+            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-npc-sprite-start");
+        }
+
+        public void ZoomOut()
+        {
+            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-npc-sprite-end");
+            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-npc-sprite-start");
         }
 
         public void ChangeSprite(Sprite sprite)
