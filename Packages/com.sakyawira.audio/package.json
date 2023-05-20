@@ -1,0 +1,8 @@
+{
+  "name": "com.sakyawira.audio",
+  "version": "0.1.0",
+  "displayName": "Sakyawira Audio",
+  "dependencies": {
+  },
+  "description": "A package consisting scripts to help play sounds"
+}

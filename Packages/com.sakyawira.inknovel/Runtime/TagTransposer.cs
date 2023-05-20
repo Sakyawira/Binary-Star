@@ -35,8 +35,8 @@ namespace Sakyawira.InkNovel
 
         private void Start()
         {
-            _playerCharacterSpriteEvent.Invoke(_characterDatabase.GetSprites("Aneska", Emotion.ANGRY), _characterDatabase.GetSprite("Aneska", Emotion.ANGRY));
-            _nonPlayerCharacterSpriteEvent.Invoke(_characterDatabase.GetSprites("Yuvan", Emotion.ANGRY), _characterDatabase.GetSprite("Yuvan", Emotion.ANGRY));
+            //_playerCharacterSpriteEvent.Invoke(_characterDatabase.GetSprites("Aneska", Emotion.ANGRY), _characterDatabase.GetSprite("Aneska", Emotion.ANGRY));
+            //_nonPlayerCharacterSpriteEvent.Invoke(_characterDatabase.GetSprites("Yuvan", Emotion.ANGRY), _characterDatabase.GetSprite("Yuvan", Emotion.ANGRY));
         }
 
         public UnityEvent TransposeTags(List<string> tags)

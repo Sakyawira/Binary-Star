@@ -14,6 +14,12 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "com.sakyawira.audio": {
+      "version": "file:com.sakyawira.audio",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.sakyawira.inknovel": {
       "version": "file:com.sakyawira.inknovel",
       "depth": 0,
