@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Sakyawira.InkNovel
 {
-    public enum Time
+    public enum Hour
     {
         DAY,
         TWILIGHT,
@@ -18,17 +18,17 @@ namespace Sakyawira.InkNovel
         public List<Sprite> Twilight;
         public List<Sprite> Evening;
 
-        public List<Sprite> GetSprite(Time time)
+        public List<Sprite> GetSprite(Hour time)
         {
             switch (time)
             {
-                case Time.DAY:
+                case Hour.DAY:
                     return Day;
 
-                case Time.TWILIGHT:
+                case Hour.TWILIGHT:
                     return Twilight;
 
-                case Time.EVENING:
+                case Hour.EVENING:
                     return Evening;
 
                 default:

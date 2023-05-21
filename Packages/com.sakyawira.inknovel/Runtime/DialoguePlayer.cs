@@ -41,20 +41,26 @@ namespace Sakyawira.InkNovel
         [SerializeField]
         private UnityEvent<int> _musicPlayEvent;
 
+        [SerializeField]
+        private float _timeSinceLastContinue = 0;
+
+        [SerializeField]
+        private int _conversationSpeed = 0;
+
         public void InitiateStorm()
         {
             _musicPlayEvent.Invoke(1);
             _onStormInitiated.Invoke();
-            _aneskaBackground.ChangeBackground("Planet", Time.TWILIGHT);
-            _yuvanBackground.ChangeBackground("Planet", Time.TWILIGHT);
+            _aneskaBackground.ChangeBackground("Planet", Hour.TWILIGHT);
+            _yuvanBackground.ChangeBackground("Planet", Hour.TWILIGHT);
         }
 
         public void EndStorm()
         {
             _musicPlayEvent.Invoke(2);
             _onStormEnded.Invoke();
-            _aneskaBackground.ChangeBackground("Planet", Time.TWILIGHT);
-            _yuvanBackground.ChangeBackground("Planet", Time.TWILIGHT);
+            _aneskaBackground.ChangeBackground("Planet", Hour.EVENING);
+            _yuvanBackground.ChangeBackground("Planet", Hour.EVENING);
         }
 
         private void Awake()
@@ -73,10 +79,21 @@ namespace Sakyawira.InkNovel
             InvokeContinue();
         }
 
+        private void Update()
+        {
+            _timeSinceLastContinue += Time.deltaTime;
+        }
+
         public void InvokeContinue()
         {
             if (_dialogueEventCompletion == null)
             {
+                if (_timeSinceLastContinue < 1000)
+                {
+                    _conversationSpeed = (int)_inkStory.variablesState["conversation_speed"];
+                    _conversationSpeed++;
+                    _inkStory.variablesState["conversation_speed"] = _conversationSpeed;
+                }
                 Continue().Forget();
             }
         }
@@ -101,6 +118,7 @@ namespace Sakyawira.InkNovel
                     _revealChoicesEvent.Invoke(new List<string>() { _inkStory.currentChoices[0].text, _inkStory.currentChoices[1].text, _inkStory.currentChoices[2].text }, MakeChoice);
                 }
             }
+            _timeSinceLastContinue = 0;
         }
 
         private void MakeChoice(int index)

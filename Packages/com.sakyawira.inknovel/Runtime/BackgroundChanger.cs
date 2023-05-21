@@ -16,11 +16,11 @@ namespace Sakyawira.InkNovel
 
         public string ChangeBackground(string place, string time)
         {
-            ChangeBackground(place, Enum.Parse<Time>(time.ToUpper()));
+            ChangeBackground(place, Enum.Parse<Hour>(time.ToUpper()));
             return "";
         }
 
-        public string ChangeBackground(string place, Time time)
+        public string ChangeBackground(string place, Hour time)
         {
             var sprite = _backgroundDatabase.GetSprite(place, time);
             _changeBackgroundEvent.Invoke(sprite, null);

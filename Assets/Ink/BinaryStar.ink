@@ -1,4 +1,4 @@
-VAR conversation_speed = 1
+VAR conversation_speed = 0
 
 // EXTERNAL ChangeBackground(place, time)
 
