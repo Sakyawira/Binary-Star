@@ -18,6 +18,8 @@ namespace Sakyawira.UI
         private int _msPerFrame= 250;
         [SerializeField]
         private bool _isBackground = false;
+        [SerializeField]
+        private bool _loop = true;
 
         private int _animationIndex = 0;
 
@@ -52,7 +54,14 @@ namespace Sakyawira.UI
                 _animationIndex++;
                 if (_animationIndex == _sprites.Count)
                 {
-                    _animationIndex = 0;
+                    if (_loop)
+                    {
+                        _animationIndex = 0;
+                    }
+                    else
+                    {
+                        _animationIndex --;
+                    }
                 }
             }
         }

@@ -203,6 +203,7 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: 527a866ff42f3344fb3fbe58dce57080, type: 3}
   _msPerFrame: 250
   _isBackground: 1
+  _loop: 0
 --- !u!114 &220916343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +264,7 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: 781a1a55c8ff0f5498c80ed9cebae79a, type: 3}
   _msPerFrame: 250
   _isBackground: 0
+  _loop: 1
 --- !u!114 &462171166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1311,6 +1313,7 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: c3bc1d7ae0e6e9a428824719e1bea96d, type: 3}
   _msPerFrame: 250
   _isBackground: 0
+  _loop: 1
 --- !u!1 &1415860389
 GameObject:
   m_ObjectHideFlags: 0
@@ -2259,3 +2262,4 @@ MonoBehaviour:
   _sprite: {fileID: 0}
   _msPerFrame: 250
   _isBackground: 1
+  _loop: 0
