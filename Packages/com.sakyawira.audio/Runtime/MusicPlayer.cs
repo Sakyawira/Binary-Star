@@ -9,7 +9,7 @@ namespace Sakyawira.Audio
     {
         [SerializeField]
         private List<AudioSource> _audioSources;
-        private float _maxVolume = 0.52f;
+        private float _maxVolume = 0.195f;
 
         public void Start()
         {
