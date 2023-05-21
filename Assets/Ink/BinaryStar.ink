@@ -9,6 +9,7 @@ EXTERNAL EndStorm()
 
 
 “Yeah, I’m so sorry - how are you though?” #Aneska #ANGRY
+“I just really miss you. It’s been a while.” #Yuvan #NEUTRAL
 
 {
  -conversation_speed == 0 :
@@ -18,7 +19,7 @@ EXTERNAL EndStorm()
 }
 
 == A ==
-“I just really miss you. It’s been a while.” #Yuvan
+
 ->END
 
 == B ==

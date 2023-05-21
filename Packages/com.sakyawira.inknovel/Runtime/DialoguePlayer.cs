@@ -38,8 +38,12 @@ namespace Sakyawira.InkNovel
         [SerializeField]
         private UnityEvent _onStormEnded;
 
+        [SerializeField]
+        private UnityEvent<int> _musicPlayEvent;
+
         public void InitiateStorm()
         {
+            _musicPlayEvent.Invoke(1);
             _onStormInitiated.Invoke();
             _aneskaBackground.ChangeBackground("Planet", Time.TWILIGHT);
             _yuvanBackground.ChangeBackground("Planet", Time.TWILIGHT);
@@ -47,6 +51,7 @@ namespace Sakyawira.InkNovel
 
         public void EndStorm()
         {
+            _musicPlayEvent.Invoke(2);
             _onStormEnded.Invoke();
             _aneskaBackground.ChangeBackground("Planet", Time.TWILIGHT);
             _yuvanBackground.ChangeBackground("Planet", Time.TWILIGHT);
@@ -64,6 +69,7 @@ namespace Sakyawira.InkNovel
 
         private void Start()
         {
+            _musicPlayEvent.Invoke(0);
             InvokeContinue();
         }
 
