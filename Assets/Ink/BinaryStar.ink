@@ -1,8 +1,12 @@
 VAR conversation_speed = 1
 
-EXTERNAL ChangeBackground(place, time)
+// EXTERNAL ChangeBackground(place, time)
 
-~ChangeBackground("Planet", "Twilight")
+EXTERNAL InitiateStorm()
+EXTERNAL EndStorm()
+
+//~ChangeBackground("Planet", "Twilight")
+
 
 “Yeah, I’m so sorry - how are you though?” #Aneska #ANGRY
 
@@ -19,6 +23,6 @@ EXTERNAL ChangeBackground(place, time)
 
 == B ==
 “I know - can I cuddle you to make it up?” #Aneska
-
+~InitiateStorm()
 
 ->END

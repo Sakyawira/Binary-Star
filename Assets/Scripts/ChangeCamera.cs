@@ -12,7 +12,7 @@ public class ChangeCamera : MonoBehaviour
 
     public void SwapCamera()
     {
-        _startCamera.enabled = !_startCamera.enabled;
-        _endCamera.enabled = !_endCamera.enabled;
+        _startCamera.gameObject.SetActive(!_startCamera.gameObject.activeInHierarchy);
+        _endCamera.gameObject.SetActive(!_endCamera.gameObject.activeInHierarchy);
     }
 }

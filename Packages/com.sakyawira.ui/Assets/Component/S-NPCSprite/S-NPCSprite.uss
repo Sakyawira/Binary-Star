@@ -15,6 +15,44 @@
     margin-left: 360px;
 }
 
+.s-background-sprite-container-start {
+    flex-grow: 1;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-bottom: -195px;
+    margin-right: -215px;
+}
+
+.s-background-sprite-container-alt-start {
+    flex-grow: 1;
+    align-items: flex-start;
+    justify-content: flex-end;
+    margin-bottom: -195px;
+    margin-right: 0;
+    margin-left: -215px;
+}
+
+.s-background-sprite-container-end {
+    flex-grow: 1;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-bottom: 39px;
+    margin-right: 81px;
+    transition-property: margin-bottom, margin-right;
+    transition-duration: 10s, 10s;
+}
+
+.s-background-sprite-container-alt-end {
+    flex-grow: 1;
+    align-items: flex-start;
+    justify-content: flex-end;
+    margin-bottom: 39px;
+    margin-right: 0;
+    margin-left: 81px;
+    transition-property: margin-bottom, margin-left;
+    transition-duration: 10s, 10s;
+}
+
 .s-npc-sprite {
     -unity-background-scale-mode: scale-to-fit;
     flex-grow: 1;
@@ -48,5 +86,21 @@
     max-width: 325px;
     max-height: 325px;
     transition-property: max-width, width, height, max-height;
-    transition-duration: 1s, 1s, 1s, 1s;
+    transition-duration: 10s, 10s, 10s, 10s;
+}
+
+.s-background-sprite-start {
+    width: 1950px;
+    height:  1950px;
+    max-width:  1950px;
+    max-height:  1950px;
+}
+
+.s-background-sprite-end {
+    width: 975px;
+    height: 975px;
+    max-width: 975px;
+    max-height: 975px;
+    transition-property: max-width, width, height, max-height;
+    transition-duration: 10s, 10s, 10s, 10s;
 }

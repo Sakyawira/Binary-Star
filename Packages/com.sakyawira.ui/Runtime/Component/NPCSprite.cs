@@ -14,6 +14,10 @@ namespace Sakyawira.UI
         private List<Sprite> _sprites;
         [SerializeField]
         private Sprite _sprite;
+        [SerializeField]
+        private int _msPerFrame= 250;
+        [SerializeField]
+        private bool _isBackground = false;
 
         private int _animationIndex = 0;
 
@@ -21,7 +25,23 @@ namespace Sakyawira.UI
         public void Start()
         {
             GreyOut();
-            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").schedule.Execute(AnimateSprite).Every(250);
+            ChangeSprite(_sprite);
+            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").schedule.Execute(AnimateSprite).Every(_msPerFrame);
+            if (_isBackground)
+            {
+                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-npc-sprite-start");
+                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-background-sprite-start");
+                if (_uiDocument.rootVisualElement.Q<VisualElement>("Container").ClassListContains("s-npc-sprite-container-alt"))
+                {
+                    _uiDocument.rootVisualElement.Q<VisualElement>("Container").RemoveFromClassList("s-npc-sprite-container-alt");
+                    _uiDocument.rootVisualElement.Q<VisualElement>("Container").AddToClassList("s-background-sprite-container-alt-start");
+                }
+                else
+                {
+                    _uiDocument.rootVisualElement.Q<VisualElement>("Container").RemoveFromClassList("s-npc-sprite-container");
+                    _uiDocument.rootVisualElement.Q<VisualElement>("Container").AddToClassList("s-background-sprite-container-start");
+                }
+            }
         }
 
         private void AnimateSprite(TimerState timerState)
@@ -39,12 +59,44 @@ namespace Sakyawira.UI
         
         public void ZoomIn()
         {
+            if (_isBackground)
+            {
+                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-background-sprite-end");
+                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-background-sprite-start");
+                if (_uiDocument.rootVisualElement.Q<VisualElement>("Container").ClassListContains("s-background-sprite-container-alt-end")) 
+                {
+                    _uiDocument.rootVisualElement.Q<VisualElement>("Container").AddToClassList("s-background-sprite-container-alt-start");
+                    _uiDocument.rootVisualElement.Q<VisualElement>("Container").RemoveFromClassList("s-background-sprite-container-alt-end");
+                }
+                else
+                {
+                    _uiDocument.rootVisualElement.Q<VisualElement>("Container").AddToClassList("s-background-sprite-container-start");
+                    _uiDocument.rootVisualElement.Q<VisualElement>("Container").RemoveFromClassList("s-background-sprite-container-end");
+                }
+                return;
+            }
             _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-npc-sprite-end");
             _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-npc-sprite-start");
         }
 
         public void ZoomOut()
         {
+            if (_isBackground)
+            {
+                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-background-sprite-end");
+                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-background-sprite-start");
+                if (_uiDocument.rootVisualElement.Q<VisualElement>("Container").ClassListContains("s-background-sprite-container-alt-start"))
+                {
+                    _uiDocument.rootVisualElement.Q<VisualElement>("Container").AddToClassList("s-background-sprite-container-alt-end");
+                    _uiDocument.rootVisualElement.Q<VisualElement>("Container").RemoveFromClassList("s-background-sprite-container-alt-start");
+                }
+                else
+                {
+                    _uiDocument.rootVisualElement.Q<VisualElement>("Container").AddToClassList("s-background-sprite-container-end");
+                    _uiDocument.rootVisualElement.Q<VisualElement>("Container").RemoveFromClassList("s-background-sprite-container-start");
+                }
+                return;
+            }
             _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-npc-sprite-end");
             _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-npc-sprite-start");
         }

@@ -132,9 +132,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 220916338}
-  - component: {fileID: 220916337}
+  - component: {fileID: 220916343}
   - component: {fileID: 220916340}
-  - component: {fileID: 220916339}
+  - component: {fileID: 220916342}
   m_Layer: 5
   m_Name: Aneska Background
   m_TagString: Untagged
@@ -142,22 +142,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &220916337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 220916336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 9e1febeb3e4f4674bb154fd2646045b6, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: b50711ebc8f42f348ac40f490d8bcc7d, type: 3}
-  m_SortingOrder: 0
 --- !u!4 &220916338
 Transform:
   m_ObjectHideFlags: 0
@@ -173,21 +157,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &220916339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 220916336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db3f4bafe87167479591037dbd43f1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiDocument: {fileID: 220916337}
-  _animate: 0
-  _sprites: []
 --- !u!114 &220916340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,8 +172,8 @@ MonoBehaviour:
   _changeBackgroundEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 220916339}
-        m_TargetAssemblyTypeName: Sakyawira.UI.BackgroundSprite, com.sakyawira.ui
+      - m_Target: {fileID: 220916342}
+        m_TargetAssemblyTypeName: Sakyawira.UI.NPCSprite, com.sakyawira.ui
         m_MethodName: ChangeSpriteSet
         m_Mode: 0
         m_Arguments:
@@ -216,6 +185,40 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _backgroundDatabase: {fileID: 11400000, guid: 56288498ab63aea4d8afe5fa3c7c3ae1, type: 2}
+--- !u!114 &220916342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220916336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec34cdb6331d141a5b7607c1b36b2ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDocument: {fileID: 220916343}
+  _animate: 0
+  _sprites: []
+  _sprite: {fileID: 21300000, guid: 527a866ff42f3344fb3fbe58dce57080, type: 3}
+  _msPerFrame: 250
+  _isBackground: 1
+--- !u!114 &220916343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220916336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 9e1febeb3e4f4674bb154fd2646045b6, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: bd74c603b747f5246b33cb23ab289c9e, type: 3}
+  m_SortingOrder: 0
 --- !u!1 &462171164
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +260,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 04075fb32c64d914eaaa704712267008, type: 3}
   - {fileID: 21300000, guid: e672e31d31b0ad640802a43ba6196bb2, type: 3}
   - {fileID: 21300000, guid: df0063d45c7322f4a9e4ccae88295d75, type: 3}
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: 781a1a55c8ff0f5498c80ed9cebae79a, type: 3}
+  _msPerFrame: 250
+  _isBackground: 0
 --- !u!114 &462171166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,7 +363,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 674949896}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
@@ -1167,15 +1172,17 @@ MonoBehaviour:
   _uiDocument: {fileID: 1364844257}
   _animate: 1
   _sprites:
-  - {fileID: 21300000, guid: d8306c81220c6794e8c3f54b8ec0c1a1, type: 3}
-  - {fileID: 21300000, guid: a43250bdfa6a5fe42a7a4a0abb51cf7c, type: 3}
-  - {fileID: 21300000, guid: d0e950b5eabb24a42a2eaaace242b0f7, type: 3}
-  - {fileID: 21300000, guid: 162bf56f7c90d30428dd65bdaa439958, type: 3}
-  - {fileID: 21300000, guid: 85f6ef4dff3aa854790395260f528569, type: 3}
-  - {fileID: 21300000, guid: 7d2f8e3f04d336d4d84d7dcce93fd30b, type: 3}
-  - {fileID: 21300000, guid: d4b31af5a3d51614b911114646e84f67, type: 3}
-  - {fileID: 21300000, guid: 74d150b351a89744cbd3c88536150958, type: 3}
-  _sprite: {fileID: 0}
+  - {fileID: 21300000, guid: c3bc1d7ae0e6e9a428824719e1bea96d, type: 3}
+  - {fileID: 21300000, guid: da7e64d3b62240649be62fb1e7110c36, type: 3}
+  - {fileID: 21300000, guid: 397c987ec772ba74d813c040e4b19e22, type: 3}
+  - {fileID: 21300000, guid: b893120c977f3ba43a1c21f91e47239d, type: 3}
+  - {fileID: 21300000, guid: 2f9087c3fb1db0b45bf68629c66c4589, type: 3}
+  - {fileID: 21300000, guid: 6550f16fca6fa3f4888d2971349a1b4e, type: 3}
+  - {fileID: 21300000, guid: dc35629e58b92b442b2efbd42a3bd4e0, type: 3}
+  - {fileID: 21300000, guid: 278fa8346e72a0d4082308ed15771696, type: 3}
+  _sprite: {fileID: 21300000, guid: c3bc1d7ae0e6e9a428824719e1bea96d, type: 3}
+  _msPerFrame: 250
+  _isBackground: 0
 --- !u!1 &1548028469
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,6 +1280,132 @@ MonoBehaviour:
   _gameStartEvent:
     m_PersistentCalls:
       m_Calls: []
+  _onStormInitiated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 963194230}
+        m_TargetAssemblyTypeName: ChangeCamera, Assembly-CSharp
+        m_MethodName: SwapCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 462171165}
+        m_TargetAssemblyTypeName: Sakyawira.UI.NPCSprite, com.sakyawira.ui
+        m_MethodName: ZoomOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1364844259}
+        m_TargetAssemblyTypeName: Sakyawira.UI.NPCSprite, com.sakyawira.ui
+        m_MethodName: ZoomOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 220916342}
+        m_TargetAssemblyTypeName: Sakyawira.UI.NPCSprite, com.sakyawira.ui
+        m_MethodName: ZoomOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1991112662}
+        m_TargetAssemblyTypeName: Sakyawira.UI.NPCSprite, com.sakyawira.ui
+        m_MethodName: ZoomOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onStormEnded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 963194230}
+        m_TargetAssemblyTypeName: ChangeCamera, Assembly-CSharp
+        m_MethodName: SwapCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1364844259}
+        m_TargetAssemblyTypeName: Sakyawira.UI.NPCSprite, com.sakyawira.ui
+        m_MethodName: ZoomIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 462171165}
+        m_TargetAssemblyTypeName: Sakyawira.UI.NPCSprite, com.sakyawira.ui
+        m_MethodName: ZoomIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1991112662}
+        m_TargetAssemblyTypeName: Sakyawira.UI.NPCSprite, com.sakyawira.ui
+        m_MethodName: ZoomIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 220916342}
+        m_TargetAssemblyTypeName: Sakyawira.UI.NPCSprite, com.sakyawira.ui
+        m_MethodName: ZoomIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1548028472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1577,9 +1710,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1991112660}
-  - component: {fileID: 1991112659}
+  - component: {fileID: 1991112661}
   - component: {fileID: 1991112658}
-  - component: {fileID: 1991112657}
+  - component: {fileID: 1991112662}
   m_Layer: 5
   m_Name: Yuvan Background
   m_TagString: Untagged
@@ -1587,21 +1720,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1991112657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991112656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db3f4bafe87167479591037dbd43f1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiDocument: {fileID: 1991112659}
-  _animate: 0
-  _sprites: []
 --- !u!114 &1991112658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1617,8 +1735,8 @@ MonoBehaviour:
   _changeBackgroundEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1991112657}
-        m_TargetAssemblyTypeName: Sakyawira.UI.BackgroundSprite, com.sakyawira.ui
+      - m_Target: {fileID: 1991112662}
+        m_TargetAssemblyTypeName: Sakyawira.UI.NPCSprite, com.sakyawira.ui
         m_MethodName: ChangeSpriteSet
         m_Mode: 0
         m_Arguments:
@@ -1630,22 +1748,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _backgroundDatabase: {fileID: 11400000, guid: b2fc684d8004e3940bfb2120ebcd1a58, type: 2}
---- !u!114 &1991112659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991112656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 9e1febeb3e4f4674bb154fd2646045b6, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: b50711ebc8f42f348ac40f490d8bcc7d, type: 3}
-  m_SortingOrder: 0
 --- !u!4 &1991112660
 Transform:
   m_ObjectHideFlags: 0
@@ -1661,3 +1763,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1991112661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991112656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 9e1febeb3e4f4674bb154fd2646045b6, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 2d1f364443d6743cd9e34f6e923d7937, type: 3}
+  m_SortingOrder: 0
+--- !u!114 &1991112662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991112656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec34cdb6331d141a5b7607c1b36b2ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDocument: {fileID: 1991112661}
+  _animate: 0
+  _sprites: []
+  _sprite: {fileID: 0}
+  _msPerFrame: 250
+  _isBackground: 1

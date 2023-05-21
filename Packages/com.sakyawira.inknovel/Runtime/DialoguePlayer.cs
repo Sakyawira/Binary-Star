@@ -32,12 +32,34 @@ namespace Sakyawira.InkNovel
 
         public Func<string, string, string> ChangeBackground;
 
+        [SerializeField]
+        private UnityEvent _onStormInitiated;
+
+        [SerializeField]
+        private UnityEvent _onStormEnded;
+
+        public void InitiateStorm()
+        {
+            _onStormInitiated.Invoke();
+            _aneskaBackground.ChangeBackground("Planet", Time.TWILIGHT);
+            _yuvanBackground.ChangeBackground("Planet", Time.TWILIGHT);
+        }
+
+        public void EndStorm()
+        {
+            _onStormEnded.Invoke();
+            _aneskaBackground.ChangeBackground("Planet", Time.TWILIGHT);
+            _yuvanBackground.ChangeBackground("Planet", Time.TWILIGHT);
+        }
+
         private void Awake()
         {
-            ChangeBackground += _aneskaBackground.ChangeBackgroundImpl;
-            ChangeBackground += _yuvanBackground.ChangeBackgroundImpl;
+            ChangeBackground += _aneskaBackground.ChangeBackground;
+            ChangeBackground += _yuvanBackground.ChangeBackground;
             _inkStory = new Story(_inkJson.text);
             _inkStory.BindExternalFunction("ChangeBackground", ChangeBackground);
+            _inkStory.BindExternalFunction("InitiateStorm", InitiateStorm);
+            _inkStory.BindExternalFunction("EndStorm", EndStorm);
         }
 
         private void Start()
