@@ -73,14 +73,16 @@
     opacity: 1;
 }
 
-.s-npc-sprite-start {
+.s-npc-sprite-zoom-in {
     width: 463px;
     height: 542px;
     max-width: 463px;
     max-height: 542px;
+    transition-property: max-width, width, height, max-height;
+    transition-duration: 10s, 10s, 10s, 10s;
 }
 
-.s-npc-sprite-end {
+.s-npc-sprite-zoom-out {
     width: 231px;
     height: 271px;
     max-width: 231px;
@@ -89,14 +91,16 @@
     transition-duration: 10s, 10s, 10s, 10s;
 }
 
-.s-background-sprite-start {
+.s-background-sprite-zoom-in {
     width: 910px;
     height:  910px;
     max-width:  910px;
     max-height:  910px;
+    transition-property: max-width, width, height, max-height;
+    transition-duration: 10s, 10s, 10s, 10s;
 }
 
-.s-background-sprite-end {
+.s-background-sprite-zoom-out {
     width: 975px;
     height: 975px;
     max-width: 975px;

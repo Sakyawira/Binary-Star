@@ -31,8 +31,8 @@ namespace Sakyawira.UI
             _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").schedule.Execute(AnimateSprite).Every(_msPerFrame);
             if (_isBackground)
             {
-                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-npc-sprite-start");
-                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-background-sprite-start");
+                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-npc-sprite-zoom-in");
+                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-background-sprite-zoom-in");
                 if (_uiDocument.rootVisualElement.Q<VisualElement>("Container").ClassListContains("s-npc-sprite-container-alt"))
                 {
                     _uiDocument.rootVisualElement.Q<VisualElement>("Container").RemoveFromClassList("s-npc-sprite-container-alt");
@@ -71,8 +71,8 @@ namespace Sakyawira.UI
         {
             if (_isBackground)
             {
-                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-background-sprite-end");
-                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-background-sprite-start");
+                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-background-sprite-zoom-out");
+                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-background-sprite-zoom-in");
                 if (_uiDocument.rootVisualElement.Q<VisualElement>("Container").ClassListContains("s-background-sprite-container-alt-end")) 
                 {
                     _uiDocument.rootVisualElement.Q<VisualElement>("Container").AddToClassList("s-background-sprite-container-alt-start");
@@ -85,8 +85,8 @@ namespace Sakyawira.UI
                 }
                 return;
             }
-            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-npc-sprite-end");
-            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-npc-sprite-start");
+            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-npc-sprite-zoom-out");
+            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-npc-sprite-zoom-in");
         }
 
         [ContextMenu("ZoomOut")]
@@ -94,8 +94,8 @@ namespace Sakyawira.UI
         {
             if (_isBackground)
             {
-                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-background-sprite-end");
-                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-background-sprite-start");
+                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-background-sprite-zoom-out");
+                _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-background-sprite-zoom-in");
                 if (_uiDocument.rootVisualElement.Q<VisualElement>("Container").ClassListContains("s-background-sprite-container-alt-start"))
                 {
                     _uiDocument.rootVisualElement.Q<VisualElement>("Container").AddToClassList("s-background-sprite-container-alt-end");
@@ -108,8 +108,8 @@ namespace Sakyawira.UI
                 }
                 return;
             }
-            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-npc-sprite-end");
-            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-npc-sprite-start");
+            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-npc-sprite-zoom-out");
+            _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").RemoveFromClassList("s-npc-sprite-zoom-in");
         }
 
         public void ChangeSprite(Sprite sprite)
