@@ -66,6 +66,7 @@ namespace Sakyawira.UI
             }
         }
         
+        [ContextMenu("ZoomIn")]
         public void ZoomIn()
         {
             if (_isBackground)
@@ -88,6 +89,7 @@ namespace Sakyawira.UI
             _uiDocument.rootVisualElement.Q<VisualElement>("Sprite").AddToClassList("s-npc-sprite-start");
         }
 
+        [ContextMenu("ZoomOut")]
         public void ZoomOut()
         {
             if (_isBackground)

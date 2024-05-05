@@ -49,6 +49,7 @@ namespace Sakyawira.InkNovel
 
         public void InitiateStorm()
         {
+            Debug.Log("Initiate Storm");
             _musicPlayEvent.Invoke(1);
             _onStormInitiated.Invoke();
             _aneskaBackground.ChangeBackground("Planet", Hour.TWILIGHT);
@@ -57,6 +58,7 @@ namespace Sakyawira.InkNovel
 
         public void EndStorm()
         {
+            Debug.Log("End Storm");
             _musicPlayEvent.Invoke(2);
             _onStormEnded.Invoke();
             _aneskaBackground.ChangeBackground("Planet", Hour.EVENING);
@@ -124,7 +126,7 @@ namespace Sakyawira.InkNovel
         private void MakeChoice(int index)
         {
             _inkStory.ChooseChoiceIndex(index);
-            Continue();
+            Continue().Forget();
             _makeChoiceEvent.Invoke();
         }
     }
