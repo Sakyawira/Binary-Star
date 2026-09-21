@@ -48,12 +48,17 @@ flowchart LR
 
 ## Preserved behavior and deliberate fixes
 
-- Original Ink source and JSON are byte-for-byte unchanged, including commented
-  dialogue and the dormant alternate route. Full Ink semantics remain available
-  through the vendored runtime, rather than flattening the story into a line list.
+- The first migration retained the original compiled story. The 50 commented
+  opening lines have since been restored at the user's request, preserving their
+  text and tags, and recompiled with official inklecate 1.2.1 (Ink JSON 21).
+  The additional argument dialogue and dormant route selector remain commented.
+  Full Ink semantics remain available through the vendored runtime.
 - SpriteFrames resolve Unity GUIDs directly, preserving emotional frame sets,
   resting/glow sprites, the 250 ms cadence, and 17-frame forward/reverse storms.
   Backgrounds hold their final frame. Media files are reused without recompression.
+  The separate eight-frame `Breakdown/3_Storm_*` assets were not referenced by the
+  Unity background databases and remain unused; the connected starburst sequence
+  uses `2_Storm_*` frames, followed by their reverse on recovery.
 - Text reveals every 65 ms. A click during typing now reveals the line; the next
   click advances. Completion emits a signal instead of resolving a UniTask.
 - The camera's 40-degree field of view and z=-13/-29 positions are translated
@@ -88,7 +93,7 @@ the generated `.godot/` cache, `builds/`, and `test-results/` do not.
 
 The integration runner instantiates the real scene and exercises its serialized
 connections. Reference transcripts were extracted from the original `.ink`
-source, independently of the compiled JSON. Both the 26-line active route and
+source, independently of the compiled JSON. Both the 76-line active route and
 22-line alternate route (including their shared outro) must match exactly after
 Ink's normal collapsing of repeated spaces/tabs in the displayed text.
 Choice fixtures additionally exercise one, two, and four options.
@@ -110,7 +115,6 @@ Godot executable. OS signing and distribution are separate from the migration.
 ## Dependencies and reference
 
 - [InkGD source and license](../addons/inkgd/UPSTREAM.md): runtime-only vendor,
-  pinned to a commit; supports this project's Ink JSON version 20. It emits a
-  non-critical format advisory because its current format is 21.
+  pinned to a commit; supports this project's recompiled Ink JSON version 21.
 - [Godot signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html).
 - [Godot image importing](https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/importing_images.html).

@@ -31,7 +31,7 @@ godot --path .
 | `scripts/` | Story, dialogue presentation, frame animation, and audio controllers |
 | `data/*.tres` | Native SpriteFrames converted from Unity's character/background databases |
 | `Assets/Ink/BinaryStar.ink` | Original editable story |
-| `Assets/Ink/BinaryStar.json` | Original compiled Ink story, loaded by the game |
+| `Assets/Ink/BinaryStar.json` | Compiled Ink story, loaded by the game |
 | `Assets/Data`, `Assets/MUSIC`, `Assets/Fonts & Materials` | Original media used directly by Godot |
 | `addons/inkgd` | Vendored pure GDScript Ink runtime with its MIT license and pinned provenance |
 | `tests/` | Scene integration tests and source-derived reference transcripts |
@@ -46,18 +46,28 @@ See [migration notes and UnityEvent → signal mapping](docs/MIGRATION.md).
 Edit the `.ink` file, then compile it back to `Assets/Ink/BinaryStar.json` with
 [Inky or inklecate](https://github.com/inkle/ink). Keep both files together in
 version control. The bundled runtime supports Ink JSON versions 18 through 21.
-It runs the existing version 20 story unchanged and prints a harmless version
-advisory because its current format is 21. A compiler is only needed when editing
-the story, not to run the game.
+The restored story is compiled with official **inklecate 1.2.1** to format 21,
+matching the runtime. A compiler is only needed when editing the story, not to
+run the game:
 
-The checked-in playable path contains **26 dialogue lines**. The longer opening
-and branch-selection code are commented out in the original source; they remain
-so. `BRANCH2` and its outro are preserved, and are exercised separately in tests.
+```sh
+inklecate -o Assets/Ink/BinaryStar.json Assets/Ink/BinaryStar.ink
+```
+
+The checked-in playable path contains **76 dialogue lines**, including the 50
+restored opening lines about their late-night call, binary stars, and relationship.
+The original words and tags are preserved. The additional argument dialogue and
+branch-selection code remain commented out. `BRANCH2` and its outro are preserved
+and exercised separately in tests.
 
 The two tags on a dialogue line are character name and emotion, for example
 `#Aneska #HAPPY`. `InitiateStorm()` and `EndStorm()` emit phase signals for the
 visuals and music. `ChangeBackground("Planet", "Day")` is also bound for future
 story use. See `story_controller.gd` for the signal API.
+
+Both star backgrounds animate through their 17 `2_Storm_*` frames at 4 fps when
+the storm starts, then play those frames in reverse when it ends. The separate
+eight-frame `Breakdown/3_Storm_*` sets remain unused, as in the Unity scene.
 
 ## Verify
 

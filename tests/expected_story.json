@@ -1,6 +1,355 @@
 {
   "main": [
     {
+      "text": "“Oh my god, what time is it for you?”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“It is 2 am here… our call was supposed to be at 11 pm. Have you just arrived at your place?”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“Yeah, I’m so sorry - how are you though?”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“Terrible, depressed.”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“....”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“I just really miss you. It’s been a while.”",
+      "tags": [
+        "Yuvan"
+      ]
+    },
+    {
+      "text": "“I know - can I cuddle you to make it up?”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“You’re not here though.”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“Peluk jauh!!!”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Hehe. Okay - I feel better already! Do you still want to watch that movie? We might not finish it tonight though. I am getting really sleepy.”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“It’s okay, let’s watch that movie tomorrow. I do have a topic I want to talk about for tonight.”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Okay - let’s hear it!”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“I learned about Binary Star today”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“What’s that? A new K-Pop group? Like Big Bang?”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“Yes - from Nebula Entertainment. Their visuals are astronomical! Don’t even get me started on their GRAVITY”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Uhh - what…?”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“No - it is not a K-Pop Band.”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Oh, so what is it then?”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“So - they are stars, like our Sun - but instead of solo - they go abouts in duets.”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Stahp.”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“Hahaha - but seriously though. Most stars in the Universe are Binary Stars. Some say even our Sun was once a Binary Star.”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“What happened to our Sun’s partner?”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“Apparently they broke up.”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“I see… Centrifugal force?”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“Yes - if two entities revolve around each other, the faster they move and the closer they are, the stronger they will push each other away”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Hooo - look at you showing off your physics knowledge”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“Mmmhm, it’s not like I need it for my profession or anything”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Hahaha - okay okay.”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“So - what about you? Any topic for your girlfriend?”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Okay so I do have something that’s been bothering me.”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“Go on.”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Okay... So, why did you come home so late? I did tell you that I had a really rough time at work and I want to TALK to YOU about it, right?”",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“I know - I am so sorry. I just didn’t feel like I have the energy tonight.”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“Huh? So you have the energy to talk to your friends but not me? Why?”",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Yes - I know I am being selfish. But I also had a hard time at work. I just … I just needed to have fun!”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“I see - is there someone among your friends that you really want to have fun with?”",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“What? No!”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“Right - sorry, of course it’s not like that.”",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Sigh”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“I just feel like you prioritize your friends more than me - the last time we had a good long conversation was a long time ago.”",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“I know, but I do have to maintain my friendships with them. I will be hanging out with you every week once and while you are back, by that time I will have no chance to hang out with my friends”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“Yeah - I understand. Your argument makes total sense. And so I have been trying to feel better about this - I hung out with a lot of friends the last couple of weeks, I have been intensifying my workout routines, but just somehow - somehow I still want and need to spend time with you.”",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“I see - but well I do not know how to respond. I hope I can fulfill your needs. But I am not ready to do that yet. Maybe I am just not ready for this relationship after all.”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“I - I don’t think that is the case. The fact that we are having this conversation without screaming our lungs out is a testament to that. I love you, sayang.”",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "“Yeah, but the way I love you is not enough, isn’t it? It breaks my heart to know that I keep hurting you.”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“Hey, I am okay. I do get hurt sometimes, but you have done so much for me too. These things happen to every couple. Remember that time you helped me through the conflict with my parents? It would have not been easy for me to accept if it was anyone else but you.”",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "“Thank you and - I’m sorry. You always ended up being the one to comfort me, even though you are the one who is hurting.”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“It’s okay - I still want to talk about my feelings though, do you think you can do it now?”",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "“Sure - let’s not delay it.”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“Well, yeah I think I just want to feel that you do love me more than your friends - that I am your number one.”",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
       "text": "“I do - you are”",
       "tags": [
         "Aneska",

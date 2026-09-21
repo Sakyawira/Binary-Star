@@ -6,4 +6,4 @@ The only upstream adjustment is removal of a trailing blank line at the end of
 `runtime/lists/ink_list.gd`; runtime behavior is unchanged.
 The editor plugin, Mono integration, examples, and tests are not needed here.
 The runtime is registered as the `__InkRuntime` autoload in `project.godot`.
-It supports Ink JSON versions 18–21, including this project's version 20.
+It supports Ink JSON versions 18–21, including this project's version 21.

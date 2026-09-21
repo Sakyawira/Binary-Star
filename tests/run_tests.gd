@@ -35,7 +35,7 @@ func _run() -> void:
 	root.add_child(game)
 	await process_frame
 	check(lines.size() == 1, "First line starts on scene load")
-	check(game.dialogue.text == "“I do - you are”", "Original opening text is preserved")
+	check(game.dialogue.text == "“Oh my god, what time is it for you?”", "Restored opening starts the conversation")
 	check(game.typing, "Typewriter starts")
 	check(game.aneska.animation == &"happy", "Speaker tag starts the correct animation")
 	check(game.audio.voice.playing, "Dialogue-start signal starts typing audio")
@@ -50,11 +50,27 @@ func _run() -> void:
 	await _key(KEY_SPACE)
 	check(lines.size() == 2 and game.active_speaker == "Yuvan", "Keyboard advances once to Yuvan")
 	game.finish_typing()
-	await _snapshot("02-long-dialogue")
+	# The restored 50-line opening must finish before the existing storm cue.
+	for index in range(2, 52):
+		game.continue_button.pressed.emit()
+		check(game.story.phase == "day", "Opening stays in the calm phase")
+		if lines.size() == 6:
+			check(game.active_emotion == "neutral" and game.yuvan.animation == &"neutral", "Opening line without an emotion tag uses the neutral animation")
+		game.finish_typing()
+		if lines.size() == 42:
+			await _snapshot("02-long-dialogue")
+	check(lines[12].text == "“I learned about Binary Star today”", "The binary-star setup is restored before the outro callback")
+	check(lines.size() == 52, "All opening lines precede the original storm dialogue")
 	game.continue_button.pressed.emit()
-	check(phases == ["day", "twilight"], "Ink storm callback fires exactly at the third line")
+	check(phases == ["day", "twilight"] and lines.size() == 53, "Ink storm callback follows the restored opening")
 	check(game.audio.current_act == 1, "Storm signal starts act two")
 	game.stage_tween.custom_step(11.0)
+	for background in [game.aneska_background, game.yuvan_background]:
+		var first_texture: Texture2D = background.texture
+		background._process(0.24)
+		check(background.frame_index == 0, "Background waits for the 250ms frame boundary")
+		background._process(0.01)
+		check(background.frame_index == 1 and background.texture != first_texture, "Background visibly advances through the storm sprites")
 	game.aneska_background._process(5.0)
 	game.yuvan_background._process(5.0)
 	check(game.aneska.size.is_equal_approx(Vector2(231.5, 271)), "Storm signal zooms portraits out")
@@ -67,7 +83,7 @@ func _run() -> void:
 	game.advance()
 	game.finish_typing()
 	game.advance()
-	check(phases == ["day", "twilight", "evening"], "Ink ends the storm at the fifth line")
+	check(phases == ["day", "twilight", "evening"] and lines.size() == 55, "Ink ends the storm at the original recovery dialogue")
 	check(game.audio.current_act == 2, "End-storm signal starts act three")
 	game.stage_tween.custom_step(11.0)
 	game.aneska_background._process(5.0)
@@ -82,10 +98,10 @@ func _run() -> void:
 		game.finish_typing()
 		game.advance()
 	check(game.story.ended, "Story reaches END")
-	check(lines.size() == 26, "All 26 active dialogue lines run")
+	check(lines.size() == 76, "All 76 dialogue lines run, including the restored opening")
 	var expected: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/expected_story.json"))
 	# Ink collapses runs of spaces/tabs in output (the source has a double space
-	# on line 10). Keep the source-derived fixture literal and normalize here.
+	# in the reconciliation). Keep the source-derived fixture literal and normalize here.
 	var whitespace := RegEx.create_from_string("[ \\t]+")
 	for route in expected.values():
 		for line in route:
@@ -98,7 +114,7 @@ func _run() -> void:
 	check(game.replay_button.visible, "Story-finished signal shows replay")
 	check(not game.continue_button.visible, "Story-finished signal hides continue")
 	for line in lines:
-		check(line.tags.size() == 2 and line.tags[0] in ["Aneska", "Yuvan"], "Speaker and emotion tags survive Ink")
+		check(line.tags.size() in [1, 2] and line.tags[0] in ["Aneska", "Yuvan"], "Speaker and optional emotion tags survive Ink")
 	await _snapshot("05-ending")
 	await _key(KEY_M)
 	check(game.audio.muted and AudioServer.is_bus_mute(0), "Mute input reaches audio through signals")
@@ -106,7 +122,7 @@ func _run() -> void:
 	check(not game.audio.muted, "Audio can be unmuted")
 	game.replay_button.pressed.emit()
 	check(game.typing and game.story.phase == "day" and game.audio.current_act == 0, "Replay resets story, stage and audio")
-	check(game.dialogue.text == "“I do - you are”", "Replay returns to the original first line")
+	check(game.dialogue.text == "“Oh my god, what time is it for you?”", "Replay returns to the restored first line")
 	game.get_node("Toolbar/Restart").pressed.emit()
 	game.finish_typing()
 	check(game.previous.text.is_empty(), "Restart during typing clears dialogue history")
