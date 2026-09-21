@@ -19,10 +19,10 @@ No UnityEvent adapter, polling event bus, or C# runtime remains in the game.
 | `UIInteractionBus._actionOnInteraction → InvokeContinue` | Button `pressed` / mouse, touch, keyboard input → view `advance()` → `continue_requested` → `Story.advance()` |
 | `DialoguePlayer._dialogueEvent → UpdateDialogue` | `Story.line_ready(text, tags)` → view `_show_line()` |
 | `TagTransposer._characterNameEvent`, `_noCharacterNameEvent` | `line_ready` tags → speaker label, blank for untagged narration |
-| `_playerCharacterSpriteEvent`, `_nonPlayerCharacterSpriteEvent → ChangeSpriteSet` | `dialogue_started(character, emotion)` → both portraits; only the matching character animates |
-| Sprite event `→ GreyOut` | The inactive portrait keeps its resting image; the original disabled USS tint was white, not actually gray |
+| `_playerCharacterSpriteEvent`, `_nonPlayerCharacterSpriteEvent → ChangeSpriteSet` | `dialogue_started(character, emotion)` → both portraits; the matching character begins fading to the authored highlighted sprite |
+| Sprite event `→ GreyOut` | `dialogue_started` fades the listener to a dimmed, unlit frame of their last emotion |
 | Sprite event `→ PlaySound` | `dialogue_started` → `Audio.on_dialogue_started()` → character typing loop |
-| `UniTaskCompletionSource`, `_playerDialogueEndEvent`, `_npcDialogueEndEvent → Highlight` | `dialogue_completed(character, emotion)` → matching portrait's resting/glow frame |
+| `UniTaskCompletionSource`, `_playerDialogueEndEvent`, `_npcDialogueEndEvent → Highlight` | `dialogue_completed(character, emotion)` → both portraits fade to unhighlighted poses; highlight timing is intentionally reversed from the Unity implementation |
 | Dialogue-end events `→ StopSound` | `dialogue_completed` → `Audio.on_dialogue_completed()` |
 | `_revealChoicesEvent → ShowChoices` | `Story.choices_ready(choices)` → dynamic buttons, supporting any choice count |
 | `MakeChoice`, `_makeChoiceEvent → HideChoices` | Choice button `pressed` → view clears choices → `choice_selected(index)` → `Story.choose(index)` |
@@ -55,6 +55,16 @@ flowchart LR
   Full Ink semantics remain available through the vendored runtime.
 - SpriteFrames resolve Unity GUIDs directly, preserving emotional frame sets,
   resting/glow sprites, the 250 ms cadence, and 17-frame forward/reverse storms.
+  Speaker focus follows the time while a line is being revealed: the speaker uses
+  the authored highlighted sprite (named `*_idle` in the imported resources)
+  with a 0.15-second fade in; the listener uses a dimmed, unlit frame of their last
+  emotion. Both portraits fade to unhighlighted over 0.25 seconds after typing
+  finishes, including click-to-reveal, and during narration. A portrait-only shader
+  blends the original textures, including their transparency; backgrounds retain
+  their frame playback. Each portrait has independent, adjustable fade durations.
+  Rapid input reverses from the current blend, and restart clears pending fades.
+  The highlighted portrait is a still image; the imported
+  portrait animation frames remain available as source assets.
   Backgrounds hold their final frame. Media files are reused without recompression.
   The separate eight-frame `Breakdown/3_Storm_*` assets were not referenced by the
   Unity background databases and remain unused; the connected starburst sequence
@@ -99,8 +109,10 @@ Ink's normal collapsing of repeated spaces/tabs in the displayed text.
 Choice fixtures additionally exercise one, two, and four options.
 
 Rendering snapshots cover calm, long dialogue, storm, restored backgrounds,
-the ending, and a 960×540 window. The game pack is exported and launched outside
-the source directory to verify resource and story packaging.
+the ending, a 960×540 window, both speaker changes during typing, and the midpoint
+of each portrait fade direction.
+The game pack is exported and launched outside the source directory to verify
+resource and story packaging.
 
 This is a native recreation, not a pixel-level comparison against a running
 Unity build. The repository does not supply a Unity build, and Unity is not

@@ -23,6 +23,10 @@ godot --path .
 - **Sound on/off** or **M**: mute or unmute.
 - **Restart** / **Read again**: start the conversation over.
 
+Portrait highlights fade in over 0.15 seconds while speaking and fade out over
+0.25 seconds when the line finishes. Select either portrait in Godot to adjust
+**Highlight Fade In** and **Highlight Fade Out**; zero makes that direction instant.
+
 ## Project layout
 
 | Path | Purpose |
@@ -74,13 +78,14 @@ eight-frame `Breakdown/3_Storm_*` sets remain unused, as in the Unity scene.
 ```sh
 godot --headless --path . --editor --import
 godot --headless --path . --script tests/run_tests.gd
-# Optional: real rendering, input checks, and six screenshots in test-results/
+# Optional: real rendering, input checks, and ten screenshots in test-results/
 godot --path . --script tests/run_tests.gd -- --screenshots
 ```
 
 Tests cover every active/alternate dialogue line and tag, storm events, music
-crossfades, typewriter completion, input, repeat play, variable choice counts,
-sprite references, and reverse background animation. They exit nonzero on failure.
+crossfades, typewriter completion, portrait focus and interrupted fades, input,
+repeat play, variable choice counts, sprite references, and reverse background
+animation. They exit nonzero on failure.
 
 Regenerate Godot sprite databases from the preserved Unity assets with Python 3:
 

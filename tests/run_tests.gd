@@ -37,25 +37,37 @@ func _run() -> void:
 	check(lines.size() == 1, "First line starts on scene load")
 	check(game.dialogue.text == "“Oh my god, what time is it for you?”", "Restored opening starts the conversation")
 	check(game.typing, "Typewriter starts")
-	check(game.aneska.animation == &"happy", "Speaker tag starts the correct animation")
+	check(game.aneska.animation == &"happy", "Speaker tag selects the correct portrait pose")
+	_check_portrait_focus("Aneska")
+	var first_portrait_texture: Texture2D = game.aneska.texture
+	game.aneska._process(0.25)
+	check(game.aneska.texture == first_portrait_texture, "Speaker keeps the highlighted sprite throughout typing")
 	check(game.audio.voice.playing, "Dialogue-start signal starts typing audio")
 	check(game.audio.current_act == 0, "Day signal starts act one")
 	game._process(0.13)
 	check(game.dialogue.visible_characters >= 2, "Text reveals at the original 65ms cadence")
 	await _click()
 	check(not game.typing and lines.size() == 1, "Click reveals the current line without skipping it")
-	check(game.aneska.animation == &"happy_idle", "Dialogue-completed signal selects the resting portrait")
+	check(game.aneska.animation == &"happy", "Revealing a line returns the speaker to the unhighlighted pose")
+	_check_portrait_focus("")
 	check(not game.audio.voice.playing, "Dialogue-completed signal stops typing audio")
 	await _snapshot("01-calm")
 	await _key(KEY_SPACE)
 	check(lines.size() == 2 and game.active_speaker == "Yuvan", "Keyboard advances once to Yuvan")
-	game.finish_typing()
+	_check_portrait_focus("Yuvan")
+	await _snapshot("07-yuvan-speaking")
+	game._process((game.dialogue.get_total_character_count() + 1) * game.seconds_per_character)
+	check(not game.typing, "Natural typewriter completion ends the speaking state")
+	_check_portrait_focus("")
 	# The restored 50-line opening must finish before the existing storm cue.
 	for index in range(2, 52):
 		game.continue_button.pressed.emit()
 		check(game.story.phase == "day", "Opening stays in the calm phase")
+		if lines.size() == 3:
+			_check_portrait_focus("Aneska")
+			await _snapshot("08-aneska-speaking")
 		if lines.size() == 6:
-			check(game.active_emotion == "neutral" and game.yuvan.animation == &"neutral", "Opening line without an emotion tag uses the neutral animation")
+			check(game.active_emotion == "neutral" and game.yuvan.animation == &"neutral", "Opening line without an emotion tag uses the neutral pose")
 		game.finish_typing()
 		if lines.size() == 42:
 			await _snapshot("02-long-dialogue")
@@ -98,6 +110,7 @@ func _run() -> void:
 		game.finish_typing()
 		game.advance()
 	check(game.story.ended, "Story reaches END")
+	_check_portrait_focus("")
 	check(lines.size() == 76, "All 76 dialogue lines run, including the restored opening")
 	var expected: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/expected_story.json"))
 	# Ink collapses runs of spaces/tabs in output (the source has a double space
@@ -123,6 +136,7 @@ func _run() -> void:
 	game.replay_button.pressed.emit()
 	check(game.typing and game.story.phase == "day" and game.audio.current_act == 0, "Replay resets story, stage and audio")
 	check(game.dialogue.text == "“Oh my god, what time is it for you?”", "Replay returns to the restored first line")
+	_check_portrait_focus("Aneska")
 	game.get_node("Toolbar/Restart").pressed.emit()
 	game.finish_typing()
 	check(game.previous.text.is_empty(), "Restart during typing clears dialogue history")
@@ -148,6 +162,7 @@ func _run() -> void:
 	# Choice counts are deliberately not fixed at Unity's hard-coded three.
 	for count in [1, 2, 4]:
 		await _test_choices(count)
+	await _test_portrait_fades()
 	_test_frames()
 	if screenshots:
 		game.restart()
@@ -181,11 +196,77 @@ func _test_choices(count: int) -> void:
 	check(game.story.story.current_choices.size() == count, "Invalid choice is safely ignored")
 	game.choices_box.get_child(count - 1).pressed.emit()
 	check(game.dialogue.text == "Selected %d" % (count - 1), "Choice-button signal chooses the corresponding Ink branch")
+	_check_portrait_focus("")
 	check(not game.choices_box.visible, "Choosing hides the choice UI")
 	game.finish_typing()
 	game.advance()
 	check(game.story.ended, "Choice branch reaches END")
 	await process_frame
+
+
+func _check_portrait_focus(character: String) -> void:
+	_settle_portrait_fades()
+	for portrait in [game.aneska, game.yuvan]:
+		var active: bool = portrait.character_name == character
+		var expected_folder := "/Characters/%s/" % portrait.character_name.to_upper()
+		check(expected_folder in portrait.texture.resource_path, "Portrait artwork matches %s" % portrait.character_name)
+		if active:
+			check(is_equal_approx(portrait.highlight_amount, 1.0), "Speaking fades to the fully highlighted portrait")
+			var highlighted: Texture2D = portrait.material.get_shader_parameter("highlighted_texture")
+			check("Glow" in highlighted.resource_path, "Speaking blends to the actual highlighted artwork")
+		else:
+			check(is_zero_approx(portrait.highlight_amount), "Non-speaking portraits finish fading to the dimmed base")
+			check(not "Glow" in portrait.texture.resource_path, "Non-speaking portraits do not retain a speaking glow")
+			check(not portrait.playing, "Listener holds a still pose")
+		check(is_equal_approx(portrait.material.get_shader_parameter("highlight_amount"), portrait.highlight_amount), "Rendered blend follows the portrait's transition")
+
+
+func _settle_portrait_fades() -> void:
+	for portrait in [game.aneska, game.yuvan]:
+		if portrait.highlight_tween and portrait.highlight_tween.is_valid():
+			portrait.highlight_tween.custom_step(1.0)
+
+
+func _test_portrait_fades() -> void:
+	game.restart()
+	var portrait: FrameSequence = game.aneska
+	check(portrait.material != game.yuvan.material, "Portraits have independent highlight blends")
+	check(is_zero_approx(portrait.highlight_amount), "Speaking starts the fade from the unhighlighted pose")
+	portrait.highlight_tween.custom_step(portrait.highlight_fade_in / 2.0)
+	check(portrait.highlight_amount > 0.0 and portrait.highlight_amount < 1.0, "Fade-in has a visible intermediate blend")
+	portrait.highlight_tween.pause()
+	await _snapshot("09-portrait-fade-in", false)
+	portrait.highlight_tween.custom_step(portrait.highlight_fade_in)
+	check(is_equal_approx(portrait.highlight_amount, 1.0), "Fade-in reaches the highlighted sprite")
+	game.finish_typing()
+	check(is_equal_approx(portrait.highlight_amount, 1.0), "Finishing a line begins fading without snapping the highlight off")
+	portrait.highlight_tween.custom_step(portrait.highlight_fade_out / 2.0)
+	var mid_fade: float = portrait.highlight_amount
+	check(mid_fade > 0.0 and mid_fade < 1.0, "Fade-out has a visible intermediate blend")
+	portrait.highlight_tween.pause()
+	await _snapshot("10-portrait-fade-out", false)
+	# Reverse a half-finished fade without jumping to either endpoint.
+	portrait.on_dialogue_started("Aneska", "happy")
+	check(is_equal_approx(portrait.highlight_amount, mid_fade), "A rapid new line preserves the in-progress blend")
+	portrait.highlight_tween.custom_step(portrait.highlight_fade_in / 2.0)
+	check(portrait.highlight_amount > mid_fade and portrait.highlight_amount < 1.0, "Interrupted fade reverses toward the new speaking state")
+	portrait.on_dialogue_completed("Aneska", "happy")
+	_settle_portrait_fades()
+	_check_portrait_focus("")
+	portrait.on_dialogue_started("Aneska", "happy")
+	portrait.highlight_tween.custom_step(portrait.highlight_fade_in / 2.0)
+	portrait.reset()
+	check(is_zero_approx(portrait.highlight_amount) and not portrait.highlight_tween.is_valid(), "Restart clears a pending fade immediately")
+	var fade_in := portrait.highlight_fade_in
+	var fade_out := portrait.highlight_fade_out
+	portrait.highlight_fade_in = 0.0
+	portrait.highlight_fade_out = 0.0
+	portrait.on_dialogue_started("Aneska", "happy")
+	check(is_equal_approx(portrait.highlight_amount, 1.0), "Zero fade-in duration switches immediately")
+	portrait.on_dialogue_completed("Aneska", "happy")
+	check(is_zero_approx(portrait.highlight_amount), "Zero fade-out duration switches immediately")
+	portrait.highlight_fade_in = fade_in
+	portrait.highlight_fade_out = fade_out
 
 
 func _test_frames() -> void:
@@ -223,9 +304,11 @@ func _key(code: Key) -> void:
 	await process_frame
 
 
-func _snapshot(filename: String) -> void:
+func _snapshot(filename: String, settle_portraits: bool = true) -> void:
 	if not screenshots:
 		return
+	if settle_portraits:
+		_settle_portrait_fades()
 	await process_frame
 	await RenderingServer.frame_post_draw
 	DirAccess.make_dir_recursive_absolute("res://test-results")
