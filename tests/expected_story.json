@@ -1,0 +1,342 @@
+{
+  "main": [
+    {
+      "text": "“I do - you are”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“Can you remind me how much? I remember the last time you chose to go out with your friend's birthday even though that night will also be the night before I left overseas.”",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“I didn’t end up going.”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“Yeah - cause I stopped you, right?",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“So… Are you ready to talk again?”",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Yeah - thank you, I needed that”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "I’m really sorry, sayang… I was being hurtful to you. I really didn’t want to… I see that you were just trying to communicate what you need.\"",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "\"Yeah, it’s okay. I didn’t need you to be perfect. I’m not either. And I’m sorry I hurt you too.\"",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "\"I love you. I want to learn to be a better partner to you…\"",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "\"It’s not just you, Nes. A relationship is between two people.  I’ll also learn how to be happy for you.\"",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "\"Can’t I be part of that?\"",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "\"You already are.\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "\"You know you’re precious to me, right?\"",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "\"Tell me how?\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "\"You know, binary stars get brighter when they’re together. Even more than single ones.\"",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "\"Now, that’s a full circle.\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "\"Guess so…",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "\"You won’t leave me alone like the sun?\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "\"...\"",
+      "tags": [
+        "Aneska",
+        "SAD"
+      ]
+    },
+    {
+      "text": "\"Nes…?\"",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "\"...\"",
+      "tags": [
+        "Aneska",
+        "SAD"
+      ]
+    },
+    {
+      "text": "\"She falls asleep!\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "\"Mmm…?\"",
+      "tags": [
+        "Aneska",
+        "SAD"
+      ]
+    },
+    {
+      "text": "\"Hehe, it’s okay, it’s been a long day. Let’s talk about it tomorrow, okay?\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "\"Mmm... Good night... Love you...\"",
+      "tags": [
+        "Aneska",
+        "SAD"
+      ]
+    },
+    {
+      "text": "\"Good night. I love you too...\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    }
+  ],
+  "branch2": [
+    {
+      "text": "“I didn’t end up going, though, right? Because you told me that you needed me.”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Yeah… But if I didn’t say it would you still have gone?”",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Van, I love you very much, and I’m sorry I was not sensitive to your feelings at that time. I really just want to make you comfortable. It was never my intention to hurt you.”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“I guess you’re right…”",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Mmhm, and I appreciate you telling me about this. We can’t do anything if we don’t know what the problem is right?”",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“Nes… Thank you for being patient with me. I’m sorry I got emotional back there. I know you’re tired too…”",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "“I’m sorry if I hurt you too… I just want to be a good partner to you.”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "\"You already are.\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "\"You know you’re precious to me, right?\"",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "\"Tell me how?\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "\"You know, binary stars get brighter when they’re together. Even more than single ones.\"",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "\"Now, that’s a full circle.\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "\"Guess so…",
+      "tags": [
+        "Aneska",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "\"You won’t leave me alone like the sun?\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "\"...\"",
+      "tags": [
+        "Aneska",
+        "SAD"
+      ]
+    },
+    {
+      "text": "\"Nes…?\"",
+      "tags": [
+        "Yuvan",
+        "ANGRY"
+      ]
+    },
+    {
+      "text": "\"...\"",
+      "tags": [
+        "Aneska",
+        "SAD"
+      ]
+    },
+    {
+      "text": "\"She falls asleep!\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "\"Mmm…?\"",
+      "tags": [
+        "Aneska",
+        "SAD"
+      ]
+    },
+    {
+      "text": "\"Hehe, it’s okay, it’s been a long day. Let’s talk about it tomorrow, okay?\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    },
+    {
+      "text": "\"Mmm... Good night... Love you...\"",
+      "tags": [
+        "Aneska",
+        "SAD"
+      ]
+    },
+    {
+      "text": "\"Good night. I love you too...\"",
+      "tags": [
+        "Yuvan",
+        "JOY"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bw33ii6n1lvgf"
+path="res://.godot/imported/yuvan typing 2.mp3-9f9cadb45e173158b12371510b3571ea.mp3str"
+
+[deps]
+
+source_file="res://Assets/MUSIC/yuvan typing 2.mp3"
+dest_files=["res://.godot/imported/yuvan typing 2.mp3-9f9cadb45e173158b12371510b3571ea.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

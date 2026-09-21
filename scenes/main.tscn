@@ -1,0 +1,245 @@
+[gd_scene load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Assets/Data/Backgrounds/0_Base.png" id="2"]
+[ext_resource type="FontFile" path="res://Assets/Fonts & Materials/Exo2-VariableFont_wght.ttf" id="3"]
+[ext_resource type="Script" path="res://scripts/frame_sequence.gd" id="4"]
+[ext_resource type="SpriteFrames" path="res://data/aneska_portrait.tres" id="5"]
+[ext_resource type="SpriteFrames" path="res://data/yuvan_portrait.tres" id="6"]
+[ext_resource type="SpriteFrames" path="res://data/aneska_background.tres" id="7"]
+[ext_resource type="SpriteFrames" path="res://data/yuvan_background.tres" id="8"]
+[ext_resource type="Script" path="res://scripts/story_controller.gd" id="9"]
+[ext_resource type="Script" path="res://scripts/audio_controller.gd" id="10"]
+[ext_resource type="AudioStream" path="res://Assets/MUSIC/act 1.wav" id="11"]
+[ext_resource type="AudioStream" path="res://Assets/MUSIC/act 2.mp3" id="12"]
+[ext_resource type="AudioStream" path="res://Assets/MUSIC/act 3.mp3" id="13"]
+[ext_resource type="AudioStream" path="res://Assets/MUSIC/aneska typing.mp3" id="14"]
+[ext_resource type="AudioStream" path="res://Assets/MUSIC/yuvan typing.mp3" id="15"]
+
+[sub_resource type="Theme" id="Theme"]
+default_font = ExtResource("3")
+default_font_size = 26
+
+[node name="BinaryStar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme")
+script = ExtResource("1")
+
+[node name="Starfield" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AneskaBackground" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 170.0
+offset_right = 1040.0
+offset_bottom = 1080.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("4")
+frames = ExtResource("7")
+initial_animation = &"day"
+
+[node name="YuvanBackground" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 880.0
+offset_top = 170.0
+offset_right = 1790.0
+offset_bottom = 1080.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("4")
+frames = ExtResource("8")
+initial_animation = &"day"
+
+[node name="Aneska" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 525.0
+offset_right = 723.0
+offset_bottom = 1067.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("4")
+frames = ExtResource("5")
+initial_animation = &"angry_idle"
+character_name = "Aneska"
+
+[node name="Yuvan" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1197.0
+offset_top = 525.0
+offset_right = 1660.0
+offset_bottom = 1067.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("4")
+frames = ExtResource("6")
+initial_animation = &"neutral_idle"
+character_name = "Yuvan"
+
+[node name="PreviousDialogue" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.4)
+layout_mode = 0
+offset_left = 220.0
+offset_top = 65.0
+offset_right = 1700.0
+offset_bottom = 145.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 23
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Speaker" type="Label" parent="."]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 195.0
+offset_right = 1620.0
+offset_bottom = 225.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 21
+horizontal_alignment = 1
+
+[node name="Dialogue" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 245.0
+offset_right = 1830.0
+offset_bottom = 510.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.96, 0.96, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.01, 0.02, 0.08, 0.85)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 39
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="Choices" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 600.0
+offset_top = 510.0
+offset_right = 1320.0
+offset_bottom = 800.0
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="."]
+modulate = Color(0.75, 0.8, 0.92, 0.75)
+layout_mode = 0
+offset_left = 42.0
+offset_top = 24.0
+offset_right = 440.0
+offset_bottom = 66.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 24
+text = "B I N A R Y   S T A R"
+
+[node name="Toolbar" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 1530.0
+offset_top = 22.0
+offset_right = 1878.0
+offset_bottom = 68.0
+theme_override_constants/separation = 20
+
+[node name="Mute" type="Button" parent="Toolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+toggle_mode = true
+text = "Sound on"
+flat = true
+tooltip_text = "Toggle audio (M)"
+
+[node name="Restart" type="Button" parent="Toolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Restart"
+flat = true
+
+[node name="Hint" type="Label" parent="."]
+modulate = Color(0.75, 0.8, 0.92, 0.75)
+layout_mode = 0
+offset_left = 650.0
+offset_top = 962.0
+offset_right = 1270.0
+offset_bottom = 1002.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 21
+horizontal_alignment = 1
+
+[node name="Continue" type="Button" parent="."]
+layout_mode = 0
+offset_left = 820.0
+offset_top = 1008.0
+offset_right = 1100.0
+offset_bottom = 1060.0
+focus_mode = 0
+text = "Continue  ›"
+flat = true
+
+[node name="Replay" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 800.0
+offset_top = 1008.0
+offset_right = 1120.0
+offset_bottom = 1060.0
+focus_mode = 0
+text = "Read again  ↺"
+flat = true
+
+[node name="Story" type="Node" parent="."]
+script = ExtResource("9")
+
+[node name="Audio" type="Node" parent="."]
+script = ExtResource("10")
+music = Array[AudioStream]([ExtResource("11"), ExtResource("12"), ExtResource("13")])
+aneska_voice = ExtResource("14")
+yuvan_voice = ExtResource("15")
+
+[connection signal="continue_requested" from="." to="Story" method="advance"]
+[connection signal="choice_selected" from="." to="Story" method="choose"]
+[connection signal="restart_requested" from="." to="Audio" method="reset"]
+[connection signal="restart_requested" from="." to="Aneska" method="reset"]
+[connection signal="restart_requested" from="." to="Yuvan" method="reset"]
+[connection signal="restart_requested" from="." to="Story" method="start"]
+[connection signal="dialogue_started" from="." to="Aneska" method="on_dialogue_started"]
+[connection signal="dialogue_started" from="." to="Yuvan" method="on_dialogue_started"]
+[connection signal="dialogue_started" from="." to="Audio" method="on_dialogue_started"]
+[connection signal="dialogue_completed" from="." to="Aneska" method="on_dialogue_completed"]
+[connection signal="dialogue_completed" from="." to="Yuvan" method="on_dialogue_completed"]
+[connection signal="dialogue_completed" from="." to="Audio" method="on_dialogue_completed"]
+[connection signal="sound_toggled" from="." to="Audio" method="set_muted"]
+[connection signal="pressed" from="Continue" to="." method="advance"]
+[connection signal="pressed" from="Replay" to="." method="restart"]
+[connection signal="pressed" from="Toolbar/Restart" to="." method="restart"]
+[connection signal="toggled" from="Toolbar/Mute" to="." method="_toggle_audio"]
+[connection signal="line_ready" from="Story" to="." method="_show_line"]
+[connection signal="choices_ready" from="Story" to="." method="_show_choices"]
+[connection signal="phase_changed" from="Story" to="." method="_change_phase"]
+[connection signal="phase_changed" from="Story" to="AneskaBackground" method="play"]
+[connection signal="phase_changed" from="Story" to="YuvanBackground" method="play"]
+[connection signal="phase_changed" from="Story" to="Audio" method="on_phase_changed"]
+[connection signal="finished" from="Story" to="." method="_finish_story"]
+[connection signal="finished" from="Story" to="Audio" method="stop_voice"]
+[connection signal="failed" from="Story" to="." method="_show_error"]
