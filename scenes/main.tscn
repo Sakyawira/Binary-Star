@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3]
+[gd_scene load_steps=26 format=3]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1"]
 [ext_resource type="Texture2D" path="res://Assets/Data/Backgrounds/0_Base.png" id="2"]
@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" path="res://scenes/dialogue_choices.tscn" id="17"]
 [ext_resource type="Script" path="res://scripts/star_background.gd" id="18"]
 [ext_resource type="PackedScene" path="res://scenes/ending_reveal.tscn" id="19"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/choice_move.wav" id="20"]
+[ext_resource type="AudioStream" path="res://Assets/SFX/choice_confirm.wav" id="21"]
 
 [sub_resource type="StyleBoxFlat" id="ReplayNormal"]
 bg_color = Color(0.09, 0.11, 0.23, 0.8)
@@ -257,6 +259,8 @@ script = ExtResource("10")
 music = Array[AudioStream]([ExtResource("11"), ExtResource("12"), ExtResource("13")])
 aneska_voice = ExtResource("14")
 yuvan_voice = ExtResource("15")
+choice_move = ExtResource("20")
+choice_confirm = ExtResource("21")
 
 [connection signal="continue_requested" from="." to="Story" method="advance"]
 [connection signal="choice_selected" from="." to="Story" method="choose"]
@@ -273,6 +277,8 @@ yuvan_voice = ExtResource("15")
 [connection signal="sound_toggled" from="." to="Audio" method="set_muted"]
 [connection signal="pressed" from="Continue" to="." method="advance"]
 [connection signal="selected" from="Choices" to="." method="_choose"]
+[connection signal="selected" from="Choices" to="Audio" method="on_choice_selected"]
+[connection signal="navigated" from="Choices" to="Audio" method="on_choice_navigated"]
 [connection signal="pressed" from="Replay" to="." method="restart"]
 [connection signal="pressed" from="Toolbar/Restart" to="." method="restart"]
 [connection signal="toggled" from="Toolbar/Mute" to="." method="_toggle_audio"]

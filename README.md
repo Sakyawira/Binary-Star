@@ -41,6 +41,10 @@ Choices appear in a navy terminal panel with numbered, monospaced responses and
 a lavender selection cursor. Long responses wrap, and longer menus scroll to keep
 the selected response visible. The panel uses bundled
 [JetBrains Mono](Assets/Fonts%20%26%20Materials/JetBrainsMono/README.md).
+Moving between responses plays a soft tick; confirming plays a short rising
+tone. Both follow the sound toggle. Select **Audio** to adjust **Choice Volume Db**.
+The original cues in `Assets/SFX` can be regenerated with
+`python3 tools/generate_ui_audio.py`.
 
 Play as Yuvan through the late-night call, doctor referral, and relationship
 conflict. Three or four opening choices lead into six more decisions through
@@ -72,6 +76,7 @@ the current choices are Yuvan's.
 | `addons/inkgd` | Vendored pure GDScript Ink runtime with its MIT license and pinned provenance |
 | `tests/` | Scene integration tests and source-derived reference transcripts |
 | `tools/convert_unity_data.py` | Reproducible conversion of Unity's sprite GUID references |
+| `tools/generate_ui_audio.py` | Reproducible synthesis of the choice navigation and confirmation cues |
 
 Unity scenes, C# packages, and settings are retained for reference and excluded
 from Godot scanning/export. New development starts in `project.godot`.
