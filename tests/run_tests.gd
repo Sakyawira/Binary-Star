@@ -217,6 +217,7 @@ func _run() -> void:
 	await _test_portrait_fades()
 	await _test_dialogue_history()
 	_test_background_recovery()
+	await _test_nebula_choice_timing()
 	await _test_ending_reveal()
 	_test_frames()
 	if screenshots:
@@ -662,6 +663,71 @@ func _test_background_recovery() -> void:
 	game.restart()
 	for background in [game.aneska_background, game.yuvan_background]:
 		check(background.texture == background.frames.get_frame_texture(&"day", 0) and background.recovery_amount == 0.0, "Restart cancels recovery and restores the calm composition immediately")
+
+
+func _enter_nebula_choices() -> void:
+	game.restart()
+	game.finish_typing()
+	game.story.story.choose_path_string("breaking_point")
+	for line in 3:
+		game.advance()
+		game.finish_typing()
+	game.advance()
+
+
+func _test_nebula_choice_timing() -> void:
+	game.set_process(false)
+	for background in [game.aneska_background, game.yuvan_background]:
+		background.set_process(false)
+	_enter_nebula_choices()
+	check(game.story.phase == "twilight" and game.story.story.current_choices.size() == 3, "The real nebula beat reaches its three responses")
+	check(not game.choices_box.visible and not game.continue_button.visible and not game.hint.visible, "The nebula reveal keeps choices and advance controls out of view")
+	var prompt: String = game.dialogue.text
+	await _key(KEY_SPACE)
+	await _key(KEY_ENTER)
+	await _key(KEY_1)
+	await _click()
+	check(game.dialogue.text == prompt and game.story.aneska_empathy == 0 and game.story.story.current_choices.size() == 3, "Inputs during the reveal cannot choose or skip the pending responses")
+	for background in [game.aneska_background, game.yuvan_background]:
+		background._process(5.0)
+	game.stage_tween.custom_step(game.transition_duration / 2.0)
+	game._process(0.0)
+	check(not game.choices_box.visible, "Finished nebula frames still wait for the camera movement")
+	await _snapshot("28-nebula-unobstructed")
+	game.stage_tween.custom_step(game.transition_duration)
+	game._process(0.0)
+	check(game.choices_box.visible and game.choices_box.rows.get_child_count() == 3, "The pending choices appear automatically when the whole reveal ends")
+	await process_frame
+	game.choices_box.appearance.custom_step(1.0)
+	await _snapshot("29-nebula-choices-after-reveal")
+	await _key(KEY_ENTER)
+	check("We can slow down" in game.dialogue.text and game.story.aneska_empathy == 1, "The revealed choices still select and score the correct Ink response")
+	for step in 12:
+		game.finish_typing()
+		game.advance()
+		if game.choices_box.visible:
+			break
+	check(game.choices_box.visible and game.choices_box.options[0].text.begins_with("If one of us"), "The later storm choice appears immediately")
+	# Check the opposite completion order too, including unequal background timing.
+	_enter_nebula_choices()
+	game.stage_tween.custom_step(game.transition_duration + 1.0)
+	game.aneska_background._process(5.0)
+	game._process(0.0)
+	check(not game.choices_box.visible, "A finished camera move still waits for both nebula animations")
+	game.yuvan_background._process(5.0)
+	game._process(0.0)
+	check(game.choices_box.visible, "The slower background can release the pending panel")
+	_enter_nebula_choices()
+	game.restart()
+	game._process(game.transition_duration + 1.0)
+	check(not game.choices_box.visible and game.pending_choices.is_empty(), "Restart during the reveal cancels the old choices")
+	game.finish_typing()
+	game.advance()
+	check(game.choices_box.visible and game.story.phase == "day", "Opening choices retain their immediate timing after restart")
+	game.restart()
+	game.set_process(true)
+	for background in [game.aneska_background, game.yuvan_background]:
+		background.set_process(true)
 
 
 func _test_ending_reveal() -> void:

@@ -42,6 +42,7 @@ var active_speaker := ""
 var active_emotion := "neutral"
 var stage_tween: Tween
 var ending_tween: Tween
+var pending_choices: Array = []
 
 
 func _ready() -> void:
@@ -50,6 +51,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if not pending_choices.is_empty() and not _nebula_revealing():
+		var choices := pending_choices
+		pending_choices = []
+		choices_box.present(choices)
 	if not typing:
 		return
 	if dialogue_start_pending:
@@ -81,6 +86,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func advance() -> void:
+	if not pending_choices.is_empty():
+		return
 	if typing:
 		finish_typing()
 	elif not choices_box.visible and not story.ended:
@@ -193,9 +200,20 @@ func _resize_on_stage(node: Control, target_size: Vector2, target_position: Vect
 func _show_choices(choices: Array) -> void:
 	_clear_choices()
 	finish_typing()
-	choices_box.present(choices)
 	continue_button.hide()
 	hint.hide()
+	# Only the storm entrance gets an unobstructed reveal. Wait for both the
+	# nebula frames and the camera move, including when the player skips ahead.
+	if _nebula_revealing():
+		pending_choices = choices.duplicate(true)
+	else:
+		choices_box.present(choices)
+
+
+func _nebula_revealing() -> bool:
+	if story.phase != "twilight":
+		return false
+	return (stage_tween != null and stage_tween.is_running()) or aneska_background.playing or yuvan_background.playing
 
 
 func _choose(index: int) -> void:
@@ -205,6 +223,7 @@ func _choose(index: int) -> void:
 
 
 func _clear_choices() -> void:
+	pending_choices.clear()
 	choices_box.clear()
 	hint.show()
 
@@ -246,6 +265,8 @@ func _toggle_audio(value: bool) -> void:
 
 func _show_error(message: String) -> void:
 	_clear_ending()
+	_clear_choices()
+	hint.hide()
 	typing = false
 	dialogue_completed.emit(active_speaker, active_emotion)
 	dialogue.text = "The story could not continue.\n" + message
