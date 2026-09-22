@@ -227,6 +227,7 @@ func _run() -> void:
 		await _snapshot("06-small-window")
 	game.queue_free()
 	await process_frame
+	await _test_restart_audio_order()
 	# Exhaustive synchronous Ink traversal must not inject a long frame into
 	# the live typewriter and manually stepped portrait-fade snapshots.
 	StoryRoutes.run(root, check)
@@ -237,6 +238,29 @@ func _run() -> void:
 	else:
 		printerr("FAILED: %d of %d checks" % [failures.size(), checks])
 	quit(0 if failures.is_empty() else 1)
+
+
+func _test_restart_audio_order() -> void:
+	# Export can reorder serialized signal handlers. Put audio reset last to
+	# reproduce the ordering that silenced music in the release web build.
+	var exported_game = load("res://scenes/main.tscn").instantiate()
+	var audio_reset := Callable(exported_game.get_node("Audio"), "reset")
+	exported_game.restart_requested.disconnect(audio_reset)
+	exported_game.restart_requested.connect(audio_reset)
+	root.add_child(exported_game)
+	await process_frame
+	for attempt in 2:
+		if attempt == 1:
+			exported_game.restart()
+		exported_game.finish_typing()
+		if exported_game.audio.fade and exported_game.audio.fade.is_valid():
+			exported_game.audio.fade.custom_step(2.0)
+		check(exported_game.audio.current_act == 0, "Reordered startup starts act one after all resets")
+		check(exported_game.audio.players[0].playing, "Reordered startup keeps music playing after dialogue finishes")
+		check(is_equal_approx(exported_game.audio.players[0].volume_linear, exported_game.audio.music_volume), "Reordered startup completes the music fade-in on load and replay")
+		check(not exported_game.audio.voice.playing, "Music verification excludes typing audio")
+	exported_game.queue_free()
+	await process_frame
 
 
 func _test_choices(count: int) -> void:

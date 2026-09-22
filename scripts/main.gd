@@ -3,6 +3,7 @@ extends Control
 signal continue_requested
 signal choice_selected(index: int)
 signal restart_requested
+signal story_start_requested
 signal dialogue_started(character: String, emotion: String)
 signal dialogue_completed(character: String, emotion: String)
 signal sound_toggled(muted: bool)
@@ -100,6 +101,9 @@ func restart() -> void:
 	replay_button.hide()
 	continue_button.show()
 	restart_requested.emit()
+	# Serialized connection order can change during export. Finish every reset
+	# before starting the story, whose phase signal starts the music and stage.
+	story_start_requested.emit()
 	continue_requested.emit()
 
 
