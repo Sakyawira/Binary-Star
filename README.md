@@ -41,8 +41,8 @@ Choices appear in a navy terminal panel with numbered, monospaced responses and
 a lavender selection cursor. Long responses wrap, and longer menus scroll to keep
 the selected response visible. The panel uses bundled
 [JetBrains Mono](Assets/Fonts%20%26%20Materials/JetBrainsMono/README.md).
-Moving between responses plays a soft tick; confirming plays a short rising
-tone. Both follow the sound toggle. Select **Audio** to adjust **Choice Volume Db**.
+Moving between responses plays a light keyboard thock; confirming plays a deeper,
+weightier thock. Both follow the sound toggle. Select **Audio** to adjust **Choice Volume Db**.
 The original cues in `Assets/SFX` can be regenerated with
 `python3 tools/generate_ui_audio.py`.
 

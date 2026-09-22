@@ -1,7 +1,8 @@
-"""Generate the original, soft terminal cues used by the choice menu."""
+"""Generate the choice menu's original, muted keyboard-like thocks."""
 
 import math
 from pathlib import Path
+import random
 import struct
 import wave
 
@@ -10,18 +11,32 @@ SAMPLE_RATE = 44100
 OUTPUT = Path(__file__).resolve().parents[1] / "Assets" / "SFX"
 
 
-def tone(time, frequency, duration):
-    if not 0 <= time < duration:
-        return 0.0
-    attack = min(1.0, time / 0.004)
-    release = (1.0 - time / duration) ** 2
-    phase = math.tau * frequency * time
-    return attack * release * (math.sin(phase) + 0.12 * math.sin(phase * 2))
+def thock(duration, body_hz, decay, seed):
+    """Mix a damped key body with a filtered, non-pitched impact."""
+    noise = random.Random(seed)
+    low = 0.0
+    high = 0.0
+    low_gain = 1.0 - math.exp(-math.tau * 180 / SAMPLE_RATE)
+    high_gain = 1.0 - math.exp(-math.tau * 1800 / SAMPLE_RATE)
+    samples = []
+    for frame in range(round(duration * SAMPLE_RATE)):
+        time = frame / SAMPLE_RATE
+        # A rounded attack and a rapidly falling pitch avoid a bell-like note.
+        attack = 1.0 - math.exp(-time / 0.0007)
+        tail = min(1.0, (duration - time) / 0.008) ** 2
+        phase = math.tau * body_hz * (time + 0.009 * (1.0 - math.exp(-time / 0.009)))
+        body = math.sin(phase) * math.exp(-time / decay)
+        shell = 0.24 * math.sin(phase * 2.73) * math.exp(-time / 0.006)
+        # Seeded noise supplies the dry key impact without a sharp hiss.
+        high += high_gain * (noise.uniform(-1.0, 1.0) - high)
+        low += low_gain * (high - low)
+        impact = 1.5 * (high - low) * math.exp(-time / 0.008)
+        samples.append((body + shell + impact) * attack * tail)
+    return samples
 
 
-def write(name, duration, synth):
-    samples = [synth(frame / SAMPLE_RATE) for frame in range(round(duration * SAMPLE_RATE))]
-    gain = 0.55 / max(abs(sample) for sample in samples)
+def write(name, samples, peak):
+    gain = peak / max(abs(sample) for sample in samples)
     data = b"".join(struct.pack("<h", round(sample * gain * 32767)) for sample in samples)
     with wave.open(str(OUTPUT / name), "wb") as sound:
         sound.setnchannels(1)
@@ -32,8 +47,6 @@ def write(name, duration, synth):
 
 if __name__ == "__main__":
     OUTPUT.mkdir(parents=True, exist_ok=True)
-    # A short, rounded cursor tick, followed by a distinct rising confirmation.
-    write("choice_move.wav", 0.055, lambda time: tone(time, 740, 0.055))
-    write("choice_confirm.wav", 0.22, lambda time: (
-        tone(time, 554.37, 0.12) + tone(time - 0.065, 830.61, 0.155)
-    ))
+    # Navigation is a light key tap; confirmation is a deeper, weightier press.
+    write("choice_move.wav", thock(0.070, 240, 0.011, seed=17), peak=0.48)
+    write("choice_confirm.wav", thock(0.105, 165, 0.018, seed=29), peak=0.58)
