@@ -263,7 +263,7 @@ yuvan_voice = ExtResource("15")
 [connection signal="restart_requested" from="." to="Audio" method="reset"]
 [connection signal="restart_requested" from="." to="Aneska" method="reset"]
 [connection signal="restart_requested" from="." to="Yuvan" method="reset"]
-[connection signal="restart_requested" from="." to="Story" method="start"]
+[connection signal="story_start_requested" from="." to="Story" method="start"]
 [connection signal="dialogue_started" from="." to="Aneska" method="on_dialogue_started"]
 [connection signal="dialogue_started" from="." to="Yuvan" method="on_dialogue_started"]
 [connection signal="dialogue_started" from="." to="Audio" method="on_dialogue_started"]

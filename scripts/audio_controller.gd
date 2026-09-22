@@ -17,6 +17,8 @@ var muted := false
 func _ready() -> void:
 	for stream in music:
 		var player := AudioStreamPlayer.new()
+		# Keep runtime loop points in Godot's mixer; web samples lose them.
+		player.playback_type = AudioServer.PLAYBACK_TYPE_STREAM
 		player.stream = _looping_copy(stream)
 		player.volume_linear = 0.0
 		add_child(player)

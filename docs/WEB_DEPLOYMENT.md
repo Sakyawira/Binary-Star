@@ -58,6 +58,14 @@ URLs remain relative so the game also works under GitHub's repository subpath.
 `web/index.html` is the site's wrapper and includes a full-screen control and a
 direct-game link.
 
+When checking a web build, reveal a line and wait with **Sound on**: music should
+continue after the typing stops. Also check mute/unmute, restart, and act
+transitions. Startup uses separate reset and story-start signals: exported scenes
+can reorder connections, so starting and resetting audio from the same signal
+can silence the music even when the editor version works.
+Music uses Stream playback so its runtime loop settings also work on the web;
+typing sounds retain the default low-latency playback.
+
 ## Local browser check
 
 Install Godot's export templates for **4.7.2**, then run:
