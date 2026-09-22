@@ -1,6 +1,4 @@
 # Binary Star
-
-# When We Sleep, Where Do We Go? 
 Binary Star is an explorative visual novel about relationship, made using Godot Engine.
 
 ## Licensing
