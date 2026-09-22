@@ -2,6 +2,7 @@ extends PanelContainer
 ## Terminal-style navigation over the choices supplied by Ink.
 
 signal selected(index: int)
+signal navigated
 
 const INACTIVE := Color("a1aec9")
 const ACTIVE := Color("edc9f2")
@@ -132,8 +133,9 @@ func _add_row(index: int, text: String) -> void:
 
 
 func _select_row(index: int) -> void:
-	if index < 0 or index >= rows.get_child_count():
+	if index < 0 or index >= rows.get_child_count() or index == selected_row:
 		return
+	var had_selection := selected_row >= 0
 	selected_row = index
 	for position in rows.get_child_count():
 		var row: Button = rows.get_child(position)
@@ -149,6 +151,10 @@ func _select_row(index: int) -> void:
 	if not focused.has_focus():
 		focused.grab_focus()
 	_reveal_selection.call_deferred()
+	# Opening the menu is silent; focus and hover callbacks for the same row
+	# must not double-play the navigation cue.
+	if had_selection:
+		navigated.emit()
 
 
 func _commit(position: int) -> void:

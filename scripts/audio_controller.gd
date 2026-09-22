@@ -4,11 +4,15 @@ extends Node
 @export var music: Array[AudioStream] = []
 @export var aneska_voice: AudioStream
 @export var yuvan_voice: AudioStream
+@export var choice_move: AudioStream
+@export var choice_confirm: AudioStream
+@export var choice_volume_db := -8.0
 @export var music_volume := 0.195
 @export var fade_duration := 1.0
 
 var players: Array[AudioStreamPlayer] = []
 var voice: AudioStreamPlayer
+var choice_audio: AudioStreamPlayer
 var fade: Tween
 var current_act := -1
 var muted := false
@@ -25,6 +29,9 @@ func _ready() -> void:
 		players.append(player)
 	voice = AudioStreamPlayer.new()
 	add_child(voice)
+	choice_audio = AudioStreamPlayer.new()
+	choice_audio.volume_db = choice_volume_db
+	add_child(choice_audio)
 
 
 func _looping_copy(stream: AudioStream) -> AudioStream:
@@ -71,6 +78,21 @@ func stop_voice() -> void:
 	voice.stop()
 
 
+func on_choice_navigated() -> void:
+	_play_choice_sound(choice_move)
+
+
+func on_choice_selected(_index: int) -> void:
+	_play_choice_sound(choice_confirm)
+
+
+func _play_choice_sound(stream: AudioStream) -> void:
+	# One UI voice prevents a held key from stacking sounds. Confirmation
+	# replaces any cursor tick and continues after the menu closes.
+	choice_audio.stream = stream
+	choice_audio.play()
+
+
 func set_muted(value: bool) -> void:
 	muted = value
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), muted)
@@ -81,6 +103,7 @@ func reset() -> void:
 		fade.kill()
 	current_act = -1
 	stop_voice()
+	choice_audio.stop()
 	for player in players:
 		player.stop()
 		player.volume_linear = 0.0
@@ -104,3 +127,4 @@ func _exit_tree() -> void:
 	for player in players:
 		player.stream = null
 	voice.stream = null
+	choice_audio.stream = null
