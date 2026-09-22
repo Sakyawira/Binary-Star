@@ -14,8 +14,8 @@ on another website. Godot documents this setup in its
    Later pushes to `main` publish automatically. **Run workflow** on `main` also
    rebuilds and publishes the site.
 
-The repository is currently private. GitHub Pages for a private personal
-repository requires GitHub Pro; see [GitHub Pages availability](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
+This repository is public, so GitHub Pages is available on the free plan.
+Private forks require a supported paid plan; see [GitHub Pages availability](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
 The workflow does not change repository visibility or enable Pages itself.
 No personal access token or custom secret is required for deployment: the deploy
 job uses the repository's automatic token and Pages OIDC permissions.

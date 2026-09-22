@@ -1,6 +1,7 @@
 # Binary Star
 
-A Godot 4 visual novel about Aneska and Yuvan, migrated from the Unity project.
+Binary Star is an explorative visual novel about relationships, made using Godot 4.
+It follows Aneska and Yuvan and was migrated from the original Unity project.
 The original Ink story, illustrations, animation frames, Exo 2 font, and audio
 are reused. Gameplay is GDScript, and UnityEvents are replaced by native Godot
 signals connected in the scene.
@@ -216,3 +217,9 @@ export templates:
 godot --headless --path . --export-pack macOS builds/BinaryStar.pck
 godot --main-pack builds/BinaryStar.pck
 ```
+## Licensing
+
+This project is dual-licensed:
+
+- The source code is available under the MIT license.
+- Art assets (images) are [CC-By 4.0](https://creativecommons.org/licenses/by/4.0/). You can attribute them to [Floretta Eleora C](https://www.linkedin.com/in/floretta-eleora-c-63a3061b4).
