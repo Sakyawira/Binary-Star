@@ -45,6 +45,9 @@ Moving between responses plays a light keyboard thock; confirming plays a deeper
 weightier thock. Both follow the sound toggle. Select **Audio** to adjust **Choice Volume Db**.
 The original cues in `Assets/SFX` can be regenerated with
 `python3 tools/generate_ui_audio.py`.
+At the nebula reveal, the choice panel waits until the background animation and
+camera movement finish. Other choices appear immediately; restart cancels any
+waiting panel.
 
 Play as Yuvan through the late-night call, doctor referral, and relationship
 conflict. Three or four opening choices lead into six more decisions through
