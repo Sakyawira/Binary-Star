@@ -18,6 +18,10 @@
       iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 1px solid #34416a; border-radius: 12px; background: #031333; }
       iframe:fullscreen { height: 100%; border: 0; border-radius: 0; }
       footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 18px; }
+      .credits { flex-basis: 100%; display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px; border-top: 1px solid #25375b; margin-top: 4px; padding-top: 18px; }
+      .credit-names { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+      .credits p, .credits a { font-size: 13px; }
+      .credit-names span { color: #eeedf8; }
       nav { display: flex; align-items: center; gap: 20px; }
       a, button { color: #d3c9ee; font: inherit; font-size: 14px; }
       a { text-underline-offset: 4px; }
@@ -40,6 +44,13 @@
           <a href="./game/">Open game</a>
           <button id="fullscreen" type="button" hidden>Full screen</button>
         </nav>
+        <div class="credits">
+          <div class="credit-names">
+            <p>Code by <span>Sakyawira Nanda Ruslim</span></p>
+            <p>Art by <span>Floretta Eleora C.</span></p>
+          </div>
+          <p>© 2026 Sakyawira Nanda Ruslim · Code licensed under the <a href="https://github.com/Sakyawira/Binary-Star/blob/main/LICENSE">MIT License</a>.</p>
+        </div>
       </footer>
     </main>
     <script>
