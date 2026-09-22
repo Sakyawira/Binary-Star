@@ -27,6 +27,14 @@ Portrait highlights fade in over 0.15 seconds while speaking and fade out over
 0.25 seconds when the line finishes. Select either portrait in Godot to adjust
 **Highlight Fade In** and **Highlight Fade Out**; zero makes that direction instant.
 
+The speaker name sits below the current dialogue. When you advance, the actual
+text moves from its reading position into the starfield over one second. The next
+line begins typing once it clears that space. Older lines stay upright as they
+shrink and fade over 24 seconds, starting gently to stay readable longer.
+Click again during departure to finish the motion and reveal the next line.
+Select **DialogueHistory** to adjust **Handoff Duration**, **Fade Duration**, or
+**Maximum Entries**.
+
 ## Project layout
 
 | Path | Purpose |
@@ -78,12 +86,13 @@ eight-frame `Breakdown/3_Storm_*` sets remain unused, as in the Unity scene.
 ```sh
 godot --headless --path . --editor --import
 godot --headless --path . --script tests/run_tests.gd
-# Optional: real rendering, input checks, and ten screenshots in test-results/
+# Optional: real rendering, input checks, and fourteen screenshots in test-results/
 godot --path . --script tests/run_tests.gd -- --screenshots
 ```
 
 Tests cover every active/alternate dialogue line and tag, storm events, music
-crossfades, typewriter completion, portrait focus and interrupted fades, input,
+crossfades, typewriter completion, portrait focus and interrupted fades,
+speaker placement, receding dialogue history and cleanup, input,
 repeat play, variable choice counts, sprite references, and reverse background
 animation. They exit nonzero on failure.
 

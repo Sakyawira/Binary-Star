@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1"]
 [ext_resource type="Texture2D" path="res://Assets/Data/Backgrounds/0_Base.png" id="2"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" path="res://Assets/MUSIC/act 3.mp3" id="13"]
 [ext_resource type="AudioStream" path="res://Assets/MUSIC/aneska typing.mp3" id="14"]
 [ext_resource type="AudioStream" path="res://Assets/MUSIC/yuvan typing.mp3" id="15"]
+[ext_resource type="Script" path="res://scripts/dialogue_crawl.gd" id="16"]
 
 [sub_resource type="Theme" id="Theme"]
 default_font = ExtResource("3")
@@ -94,25 +95,21 @@ frames = ExtResource("6")
 initial_animation = &"neutral_idle"
 character_name = "Yuvan"
 
-[node name="PreviousDialogue" type="Label" parent="."]
-modulate = Color(1, 1, 1, 0.4)
+[node name="DialogueHistory" type="Control" parent="."]
 layout_mode = 0
-offset_left = 220.0
+offset_left = 90.0
 offset_top = 65.0
-offset_right = 1700.0
-offset_bottom = 145.0
+offset_right = 1830.0
+offset_bottom = 225.0
 mouse_filter = 2
-theme_override_font_sizes/font_size = 23
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
+script = ExtResource("16")
 
 [node name="Speaker" type="Label" parent="."]
 layout_mode = 0
 offset_left = 300.0
-offset_top = 195.0
+offset_top = 311.0
 offset_right = 1620.0
-offset_bottom = 225.0
+offset_bottom = 341.0
 mouse_filter = 2
 theme_override_font_sizes/font_size = 21
 horizontal_alignment = 1

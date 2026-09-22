@@ -4,7 +4,7 @@ Baseline: Unity 6000.0.30f1 at commit
 `6bf2c52f0455cca9615d2650001fb80f178b4096`. Godot target: 4.7, tested on 4.7.2.
 
 `Persistent.unity` contains the actual visual novel. Its behavior lives in
-`scenes/main.tscn` and four GDScript files. `Storm.unity` contains only a camera,
+`scenes/main.tscn` and five GDScript files. `Storm.unity` contains only a camera,
 light, and default scene settings; it has no additional gameplay to port.
 
 ## Events become signals
@@ -71,6 +71,17 @@ flowchart LR
   uses `2_Storm_*` frames, followed by their reverse on recovery.
 - Text reveals every 65 ms. A click during typing now reveals the line; the next
   click advances. Completion emits a signal instead of resolving a UniTask.
+  The speaker name is measured and placed below the full dialogue, keeping its
+  position stable during typing and after wrapped paragraphs. On advance, the
+  actual RichTextLabel moves into the history layer without changing its screen
+  position, size, wrapping, or brightness. A one-second departure moves and fades
+  it into the trail before the next line begins typing and emits its speaking
+  signal. Another click completes that handoff and reveals the next line.
+  Whole paragraphs stay upright, shrink uniformly, drift upward, and fade over
+  24 seconds, with a gentle ease-in that keeps recent lines readable longer.
+  Up to five entries can recede together, with spacing for wrapped text and rapid
+  input. Faded labels are freed, and restart clears the entire trail. The current
+  dialogue remains in place until the player advances; narration has no name.
 - The camera's 40-degree field of view and z=-13/-29 positions are translated
   into equivalent 2D starfield sizes. Portrait/background endpoints and the
   ten-second transition duration come from the original USS/Cinemachine settings.
@@ -110,7 +121,9 @@ Choice fixtures additionally exercise one, two, and four options.
 
 Rendering snapshots cover calm, long dialogue, storm, restored backgrounds,
 the ending, a 960×540 window, both speaker changes during typing, and the midpoint
-of each portrait fade direction.
+of each portrait fade direction, the start and midpoint of text departure,
+near and distant dialogue history, and a long dialogue with attribution in a
+960×540 window.
 The game pack is exported and launched outside the source directory to verify
 resource and story packaging.
 

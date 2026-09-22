@@ -37,6 +37,8 @@ func _run() -> void:
 	check(lines.size() == 1, "First line starts on scene load")
 	check(game.dialogue.text == "“Oh my god, what time is it for you?”", "Restored opening starts the conversation")
 	check(game.typing, "Typewriter starts")
+	_check_dialogue_layout()
+	var speaker_y: float = game.speaker.position.y
 	check(game.aneska.animation == &"happy", "Speaker tag selects the correct portrait pose")
 	_check_portrait_focus("Aneska")
 	var first_portrait_texture: Texture2D = game.aneska.texture
@@ -48,12 +50,14 @@ func _run() -> void:
 	check(game.dialogue.visible_characters >= 2, "Text reveals at the original 65ms cadence")
 	await _click()
 	check(not game.typing and lines.size() == 1, "Click reveals the current line without skipping it")
+	check(is_equal_approx(game.speaker.position.y, speaker_y), "Speaker attribution stays still while text reveals")
 	check(game.aneska.animation == &"happy", "Revealing a line returns the speaker to the unhighlighted pose")
 	_check_portrait_focus("")
 	check(not game.audio.voice.playing, "Dialogue-completed signal stops typing audio")
 	await _snapshot("01-calm")
 	await _key(KEY_SPACE)
 	check(lines.size() == 2 and game.active_speaker == "Yuvan", "Keyboard advances once to Yuvan")
+	check(game.history.get_child_count() == 1 and game.history.get_child(0).text == lines[0].text, "Advancing sends the completed line into the crawl")
 	_check_portrait_focus("Yuvan")
 	await _snapshot("07-yuvan-speaking")
 	game._process((game.dialogue.get_total_character_count() + 1) * game.seconds_per_character)
@@ -62,7 +66,9 @@ func _run() -> void:
 	# The restored 50-line opening must finish before the existing storm cue.
 	for index in range(2, 52):
 		game.continue_button.pressed.emit()
+		_settle_dialogue_handoff()
 		check(game.story.phase == "day", "Opening stays in the calm phase")
+		_check_dialogue_layout()
 		if lines.size() == 3:
 			_check_portrait_focus("Aneska")
 			await _snapshot("08-aneska-speaking")
@@ -139,7 +145,7 @@ func _run() -> void:
 	_check_portrait_focus("Aneska")
 	game.get_node("Toolbar/Restart").pressed.emit()
 	game.finish_typing()
-	check(game.previous.text.is_empty(), "Restart during typing clears dialogue history")
+	check(game.history.get_child_count() == 0, "Restart during typing clears dialogue history")
 	# Rapid phase changes must cancel old tweens, not leave stale audio or zooms.
 	game.story.initiate_storm()
 	game.story.end_storm()
@@ -163,6 +169,7 @@ func _run() -> void:
 	for count in [1, 2, 4]:
 		await _test_choices(count)
 	await _test_portrait_fades()
+	await _test_dialogue_history()
 	_test_frames()
 	if screenshots:
 		game.restart()
@@ -205,6 +212,7 @@ func _test_choices(count: int) -> void:
 
 
 func _check_portrait_focus(character: String) -> void:
+	_settle_dialogue_handoff()
 	_settle_portrait_fades()
 	for portrait in [game.aneska, game.yuvan]:
 		var active: bool = portrait.character_name == character
@@ -219,6 +227,12 @@ func _check_portrait_focus(character: String) -> void:
 			check(not "Glow" in portrait.texture.resource_path, "Non-speaking portraits do not retain a speaking glow")
 			check(not portrait.playing, "Listener holds a still pose")
 		check(is_equal_approx(portrait.material.get_shader_parameter("highlight_amount"), portrait.highlight_amount), "Rendered blend follows the portrait's transition")
+
+
+func _settle_dialogue_handoff() -> void:
+	if game.dialogue_start_pending:
+		game.history.finish_handoffs()
+		game._process(game.reveal_delay)
 
 
 func _settle_portrait_fades() -> void:
@@ -267,6 +281,100 @@ func _test_portrait_fades() -> void:
 	check(is_zero_approx(portrait.highlight_amount), "Zero fade-out duration switches immediately")
 	portrait.highlight_fade_in = fade_in
 	portrait.highlight_fade_out = fade_out
+
+
+func _check_dialogue_layout() -> void:
+	check(game.speaker.position.y >= game.dialogue.position.y + game.dialogue.get_content_height() + 12.0, "Speaker attribution is below the full dialogue, including wrapped lines")
+	check(game.speaker.position.y + game.speaker.size.y <= game.choices_box.position.y, "Speaker attribution stays above the choices and portraits")
+
+
+func _test_dialogue_history() -> void:
+	game.restart()
+	game.set_process(false)
+	game.history.set_process(false)
+	game.finish_typing()
+	check(game.history.get_child_count() == 0, "The readable current line stays in place until the player advances")
+	var actual_dialogue: RichTextLabel = game.dialogue
+	var completed_line: String = game.dialogue.text
+	var original_rect := actual_dialogue.get_global_rect()
+	var original_modulate := actual_dialogue.modulate
+	game.advance()
+	var memory: RichTextLabel = game.history.get_child(0)
+	check(memory == actual_dialogue and game.dialogue != actual_dialogue, "The actual typewriter node becomes the outgoing text")
+	check(memory.get_global_rect().is_equal_approx(original_rect) and memory.modulate == original_modulate, "Departure starts at the exact reading position, size, and brightness")
+	check(game.dialogue.visible_characters == 0 and game.dialogue_start_pending, "The next line waits for the outgoing text to clear its reading position")
+	check(not game.audio.voice.playing, "Typing audio waits with the next line during the handoff")
+	check(memory.text == completed_line and memory.mouse_filter == Control.MOUSE_FILTER_IGNORE, "History preserves the completed line and lets clicks through")
+	var initial_alpha := memory.modulate.a
+	var initial_y := memory.position.y
+	var initial_scale := memory.scale.x
+	await _snapshot("11-crawl-near")
+	game.history._process(game.history.handoff_duration / 2.0)
+	game._process(game.history.handoff_duration / 2.0)
+	check(memory.position.y < initial_y and memory.scale.x < initial_scale and memory.scale.x > 0.7, "The same text visibly moves and shrinks halfway through departure")
+	check(game.dialogue.visible_characters == 0, "The next line does not overlap a departing paragraph")
+	await _snapshot("14-dialogue-departure-midpoint")
+	game.history._process(game.history.handoff_duration / 2.0)
+	game._process(game.history.handoff_duration / 2.0)
+	check(not game.dialogue_start_pending and game.audio.voice.playing, "The next line begins speaking once the departure completes")
+	game._process(0.13)
+	check(game.dialogue.visible_characters >= 2, "Typewriting resumes after the handoff")
+	check(memory.position.y < initial_y and memory.scale.x < initial_scale and memory.modulate.a < initial_alpha, "History drifts upward, shrinks, and fades with time")
+	check(is_equal_approx(memory.scale.x, memory.scale.y) and is_zero_approx(memory.rotation), "History text stays upright and scales equally in both directions")
+	game.finish_typing()
+	var older_position := memory.position
+	game.advance()
+	check(memory.position == older_position, "A new entry does not teleport an older line")
+	game.finish_typing()
+	game.history._process(0.8)
+	game.advance()
+	game.finish_typing()
+	check(game.history.get_child_count() == 3, "Several completed lines form a receding trail")
+	var entries: Array = game.history.entries
+	for index in range(1, entries.size()):
+		check(entries[index - 1].target_offset >= entries[index].target_offset + entries[index].height, "Rapid advances reserve space for older paragraphs")
+		var older: Dictionary = entries[index - 1]
+		var newer: Dictionary = entries[index]
+		check(older.label.position.y + older.height * older.label.scale.y < newer.label.position.y, "Skipping a handoff keeps the visible history paragraphs separated")
+	await _snapshot("12-crawl-trail")
+	# Exercise wrapping using the longest real dialogue, not a shortened preview.
+	var transcript: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/expected_story.json"))
+	var longest := ""
+	for line in transcript.main:
+		if line.text.length() > longest.length():
+			longest = line.text
+	game._show_line(longest, ["Yuvan", "angry"])
+	game.finish_typing()
+	_check_dialogue_layout()
+	check(game.dialogue.get_line_count() > 1, "Long dialogue wraps above the attribution")
+	if screenshots:
+		var window_size := root.size
+		root.size = Vector2i(960, 540)
+		await process_frame
+		await _snapshot("13-long-dialogue-small-window")
+		root.size = window_size
+		await process_frame
+	var long_dialogue: RichTextLabel = game.dialogue
+	var long_rect := long_dialogue.get_global_rect()
+	var wrapped_lines := long_dialogue.get_line_count()
+	game._show_line("A quiet moment.", [])
+	check(game.history.get_children().has(long_dialogue) and long_dialogue.get_global_rect().is_equal_approx(long_rect), "Wrapped dialogue also departs from its actual reading position")
+	check(long_dialogue.get_line_count() == wrapped_lines, "Moving into history preserves the original line wrapping")
+	game.restart()
+	check(not game.dialogue_start_pending and game.history.get_child_count() == 0, "Restart during departure cancels the handoff and clears history")
+	for index in 20:
+		game._show_line(longest, ["Yuvan", "angry"])
+		game.finish_typing()
+	check(game.history.get_child_count() <= game.history.maximum_entries, "Rapid skipping keeps a bounded number of history labels")
+	game.history._process(game.history.handoff_duration + game.history.fade_duration + 0.1)
+	check(game.history.get_child_count() == 0, "Faded history is removed completely")
+	check(game.dialogue.text == longest, "The current line stays readable after history fades")
+	game._show_line("A quiet moment.", [])
+	check(game.speaker.text.is_empty(), "Narration does not leave a stale attribution")
+	game.restart()
+	check(game.history.get_child_count() == 0, "Restart removes the entire crawl")
+	game.history.set_process(true)
+	game.set_process(true)
 
 
 func _test_frames() -> void:

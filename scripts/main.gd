@@ -20,7 +20,7 @@ const BACKGROUND_SIZE := Vector2(910, 910)
 @onready var aneska_background: FrameSequence = $AneskaBackground
 @onready var yuvan_background: FrameSequence = $YuvanBackground
 @onready var dialogue: RichTextLabel = $Dialogue
-@onready var previous: Label = $PreviousDialogue
+@onready var history: Control = $DialogueHistory
 @onready var speaker: Label = $Speaker
 @onready var hint: Label = $Hint
 @onready var choices_box: VBoxContainer = $Choices
@@ -30,10 +30,11 @@ const BACKGROUND_SIZE := Vector2(910, 910)
 
 var typing := false
 var typing_elapsed := 0.0
+var reveal_delay := 0.0
+var dialogue_start_pending := false
 var active_speaker := ""
 var active_emotion := "neutral"
 var stage_tween: Tween
-var history_tween: Tween
 
 
 func _ready() -> void:
@@ -44,6 +45,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not typing:
 		return
+	if dialogue_start_pending:
+		reveal_delay -= delta
+		if reveal_delay > 0.0:
+			return
+		delta = -reveal_delay
+		_begin_dialogue()
 	typing_elapsed += delta
 	dialogue.visible_characters = int(typing_elapsed / maxf(seconds_per_character, 0.001))
 	if dialogue.visible_characters >= dialogue.get_total_character_count():
@@ -76,10 +83,12 @@ func advance() -> void:
 func restart() -> void:
 	typing = false
 	typing_elapsed = 0.0
+	reveal_delay = 0.0
+	dialogue_start_pending = false
 	active_speaker = ""
 	active_emotion = "neutral"
 	dialogue.text = ""
-	previous.text = ""
+	history.clear()
 	_clear_choices()
 	replay_button.hide()
 	continue_button.show()
@@ -88,30 +97,49 @@ func restart() -> void:
 
 
 func _show_line(text: String, tags: Array) -> void:
-	if history_tween and history_tween.is_valid():
-		history_tween.kill()
-	previous.text = dialogue.text
-	previous.position.y = 100.0
-	previous.modulate.a = 0.85
-	history_tween = create_tween().set_parallel(true)
-	history_tween.tween_property(previous, "position:y", 65.0, 0.5)
-	history_tween.tween_property(previous, "modulate:a", 0.4, 0.5)
+	var has_previous := not dialogue.text.is_empty()
+	if has_previous:
+		var dialogue_index := dialogue.get_index()
+		var next_dialogue := dialogue.duplicate() as RichTextLabel
+		next_dialogue.text = ""
+		next_dialogue.visible_characters = 0
+		history.push_line(dialogue)
+		next_dialogue.name = "Dialogue"
+		add_child(next_dialogue)
+		move_child(next_dialogue, dialogue_index)
+		dialogue = next_dialogue
 	dialogue.text = text
 	dialogue.visible_characters = 0
 	typing_elapsed = 0.0
 	typing = true
+	reveal_delay = history.handoff_duration if has_previous else 0.0
+	dialogue_start_pending = has_previous
 	active_speaker = str(tags[0]) if not tags.is_empty() else ""
 	active_emotion = str(tags[1]).to_lower() if tags.size() > 1 else "neutral"
 	speaker.text = active_speaker.to_upper()
 	speaker.modulate = Color("e9b9df") if active_speaker == "Aneska" else Color("b7d9f4")
-	dialogue_started.emit(active_speaker, active_emotion)
+	# Measure the complete line so the attribution stays still during typewriting.
+	speaker.position.y = dialogue.position.y + maxf(48.0, dialogue.get_content_height()) + 18.0
+	speaker.visible = not dialogue_start_pending
+	if not dialogue_start_pending:
+		_begin_dialogue()
 	hint.text = "Click or press Space to reveal the line"
 	continue_button.text = "Reveal  ›"
+
+
+func _begin_dialogue() -> void:
+	reveal_delay = 0.0
+	dialogue_start_pending = false
+	speaker.show()
+	dialogue_started.emit(active_speaker, active_emotion)
 
 
 func finish_typing() -> void:
 	if not typing:
 		return
+	if dialogue_start_pending:
+		history.finish_handoffs()
+		_begin_dialogue()
 	typing = false
 	dialogue.visible_characters = -1
 	dialogue_completed.emit(active_speaker, active_emotion)
