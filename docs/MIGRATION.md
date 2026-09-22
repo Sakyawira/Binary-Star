@@ -4,14 +4,15 @@ Baseline: Unity 6000.0.30f1 at commit
 `6bf2c52f0455cca9615d2650001fb80f178b4096`. Godot target: 4.7, tested on 4.7.2.
 
 `Persistent.unity` contains the actual visual novel. Its behavior lives in
-`scenes/main.tscn` and five GDScript files. `Storm.unity` contains only a camera,
+`scenes/main.tscn`, `scenes/dialogue_choices.tscn`, and six GDScript files.
+`Storm.unity` contains only a camera,
 light, and default scene settings; it has no additional gameplay to port.
 
 ## Events become signals
 
 All fixed connections below are serialized as `[connection ...]` entries in
 `scenes/main.tscn`. Select a node's **Signals** panel in Godot to inspect them.
-Only dynamically created choice buttons connect their `pressed` signal in code.
+Dynamic choice rows connect their press, focus, and hover signals in code.
 No UnityEvent adapter, polling event bus, or C# runtime remains in the game.
 
 | Unity event / callback | Godot signal and subscribers |
@@ -24,8 +25,8 @@ No UnityEvent adapter, polling event bus, or C# runtime remains in the game.
 | Sprite event `→ PlaySound` | `dialogue_started` → `Audio.on_dialogue_started()` → character typing loop |
 | `UniTaskCompletionSource`, `_playerDialogueEndEvent`, `_npcDialogueEndEvent → Highlight` | `dialogue_completed(character, emotion)` → both portraits fade to unhighlighted poses; highlight timing is intentionally reversed from the Unity implementation |
 | Dialogue-end events `→ StopSound` | `dialogue_completed` → `Audio.on_dialogue_completed()` |
-| `_revealChoicesEvent → ShowChoices` | `Story.choices_ready(choices)` → dynamic buttons, supporting any choice count |
-| `MakeChoice`, `_makeChoiceEvent → HideChoices` | Choice button `pressed` → view clears choices → `choice_selected(index)` → `Story.choose(index)` |
+| `_revealChoicesEvent → ShowChoices` | `Story.choices_ready(choices)` → terminal menu with dynamic numbered rows |
+| `MakeChoice`, `_makeChoiceEvent → HideChoices` | Row press or keyboard confirmation → menu `selected(index)` → `choice_selected(index)` → `Story.choose(index)` |
 | `_onStormInitiated`, `_onStormEnded → SwapCamera / ZoomOut / ZoomIn` | `Story.phase_changed(phase)` → view stage tween; camera projection and UI endpoints use the original values |
 | `BackgroundChanger._changeBackgroundEvent → ChangeSpriteSet` | `phase_changed` → each background's `play(phase)` |
 | `_musicPlayEvent → PlayMusic` | `phase_changed` → `Audio.on_phase_changed()` → act selection and crossfade |
@@ -51,8 +52,19 @@ flowchart LR
 - The first migration retained the original compiled story. The 50 commented
   opening lines have since been restored at the user's request, preserving their
   text and tags, and recompiled with official inklecate 1.2.1 (Ink JSON 21).
-  The additional argument dialogue and dormant route selector remain commented.
+  Later authoring replaces the linear argument with the new conflict below.
   Full Ink semantics remain available through the vendored runtime.
+- `Opening.ink` now supplies the authored Yuvan choices and Aneska's responses.
+  There are 63 opening routes, returning either at the binary-star joke or at
+  "I just really miss you" before the original cuddle/movie sequence. The later
+  joins resume previously raised topics and remember Aneska's tiredness
+  disclosure, avoiding repeated introductions and explanations.
+- `Conflict.ink` adds six scored choices after the binary-star conversation.
+  Four decisions build the conflict before the original storm visuals begin;
+  two decisions and the central disclosure play during the storm. The final
+  empathy total selects one of three resolutions, whose opening exchange then
+  triggers the original background and music recovery. `BRANCH2` and `OUTRO`
+  retain the old alternate dialogue as reference knots, outside the active story.
 - SpriteFrames resolve Unity GUIDs directly, preserving emotional frame sets,
   resting/glow sprites, the 250 ms cadence, and 17-frame forward/reverse storms.
   Speaker focus follows the time while a line is being revealed: the speaker uses
@@ -65,7 +77,11 @@ flowchart LR
   Rapid input reverses from the current blend, and restart clears pending fades.
   The highlighted portrait is a still image; the imported
   portrait animation frames remain available as source assets.
-  Backgrounds hold their final frame. Media files are reused without recompression.
+  Storm backgrounds hold their final frame. After the reverse animation,
+  `star_background.gd` crossfades over one second to the original calm texture.
+  The storm canvases have different padding and Yuvan's calm art has a different
+  orientation; holding storm frame 1 left the ending visibly misaligned. New
+  phase signals cancel that recovery fade. Media files are reused without recompression.
   The separate eight-frame `Breakdown/3_Storm_*` assets were not referenced by the
   Unity background databases and remain unused; the connected starburst sequence
   uses `2_Storm_*` frames, followed by their reverse on recovery.
@@ -90,11 +106,36 @@ flowchart LR
   Completed fades stop inaudible tracks. All three acts loop.
 - Unity's Yuvan SAD sprite was null. Godot falls back to his neutral pose; this
   emotion is not used for Yuvan in the checked-in story.
-- Choices no longer assume exactly three entries. Invalid choice indices are
-  ignored, and choices receive keyboard focus.
+- Choices no longer assume exactly three entries. A navy terminal panel uses
+  JetBrains Mono, a lavender cursor and selection bar, and muted inactive rows.
+  Arrow keys/Tab wrap through responses; number keys 1–9 select, Enter/Space
+  confirm, and clicks/taps choose directly. Confirmation consumes the input so it
+  cannot also reveal the next dialogue line. Long responses wrap beneath their
+  text column; larger menus scroll within a bounded panel. Restart clears focus
+  and rows. Invalid Ink choice indices are ignored. The choice preview shortcut
+  now opens the first menu of the same main story; tests retain an isolated
+  opening fixture. The novel's old dormant route selector remains unchanged.
+  The bundled font's OFL license is included in every export preset.
 - The existing `conversation_speed` variable and 1000-second threshold remain.
-  Its route-selection logic is commented out upstream; the port does not invent
-  a new narrative branch or change that threshold.
+  The old speed-based route selector is inactive. New narrative decisions use
+  the empathy system instead; the legacy time threshold is unchanged.
+- The new `aneska_empathy` Ink variable starts at 0 (neutral). `Empathy.ink`
+  implements the approved nine-cell tone matrix. Each scored choice branch calls
+  `ScoreEmpathy(prompt_tone, response_tone)` once, and later dialogue can test the
+  accumulated value after paths rejoin or at the final resolution.
+  `Story.aneska_empathy` reads that same state; `empathy_changed(value)` reports
+  changes to Godot. Restart resets it and removes the previous story's observer.
+  The main game scores nine or ten choices per route, preserving the total
+  through every join and the ending. Prompt tones used for this playable pass
+  are documented in the story workshop. There is no meter. The resolution
+  thresholds are 5+ for closeness, 0–4 for partial repair, and below 0 for distance.
+  `final_empathy` stores the tally; `Story.ending_title` supplies the final caption.
+  The thresholds and new dialogue are initial playtest values.
+- `ending_reveal.tscn` presents a centered **Ending Unlocked** label and a 64px
+  title over a soft lavender spotlight. The last line and its speaker fade out
+  as the reveal fades in. Replay receives keyboard focus after the reveal;
+  restart cancels the animation and restores dialogue opacity. All three titles
+  and the small-window layout are covered by rendered checks.
 - Small speaker labels, replay, audio toggle, keyboard/touch input, and a scalable
   16:9 window make the migrated scene usable independently of Unity's editor.
 
@@ -105,7 +146,8 @@ flowchart LR
 implementation for comparison without being imported by Godot. Unity `.meta`
 and `.asset` files beside the original media remain conversion references.
 Export presets exclude all Unity-only files, tests, tools, and test artifacts.
-No original media, Ink content, or Unity implementation was deleted.
+Original media and Unity implementation remain preserved. Earlier Ink wording is
+available in version history alongside the newly authored playable opening.
 
 Godot `.import` sidecars and script `.uid` files belong in version control;
 the generated `.godot/` cache, `builds/`, and `test-results/` do not.
@@ -114,16 +156,27 @@ the generated `.godot/` cache, `builds/`, and `test-results/` do not.
 
 The integration runner instantiates the real scene and exercises its serialized
 connections. Reference transcripts were extracted from the original `.ink`
-source, independently of the compiled JSON. Both the 76-line active route and
-22-line alternate route (including their shared outro) must match exactly after
-Ink's normal collapsing of repeated spaces/tabs in the displayed text.
-Choice fixtures additionally exercise one, two, and four options.
+source and the authored dialogue, independently of the compiled JSON. All 63
+opening routes preserve their authored text and tags, and each continues through
+the new conflict. The retained 22-line alternate route also matches exactly.
+All 729 conflict-choice sequences are exercised with varied incoming empathy
+and remembered tiredness. Tests check the decision order, distinct responses,
+score commitment, final tally, resolution boundaries, and single storm/recovery
+events. The storm must span two decisions and at least ten spoken lines.
+Continuity checks cover a single binary-star introduction, a single explanation
+of Aneska's tiredness, a follow-up that acknowledges Yuvan already feels unwell,
+and clearing that conversation state on restart.
+Choice fixtures additionally exercise one, two, four, and nine options, plus a
+twelve-response menu for wrapping, scrolling, and small-window checks.
 
 Rendering snapshots cover calm, long dialogue, storm, restored backgrounds,
 the ending, a 960×540 window, both speaker changes during typing, and the midpoint
 of each portrait fade direction, the start and midpoint of text departure,
 near and distant dialogue history, and a long dialogue with attribution in a
-960×540 window.
+960×540 window. Choice snapshots cover default and keyboard-selected responses,
+wrapped text, a scrolled menu in the smaller window, and the live topic-change
+and support menus, plus the energy, relationship, storm, and repair decisions.
+The three ending reveals and the distant ending at 960×540 are also captured.
 The game pack is exported and launched outside the source directory to verify
 resource and story packaging.
 
@@ -133,9 +186,15 @@ installed in this environment. The retained scenes/USS are the source of layout
 and timing values. Audio playback state and fades are tested; listening quality
 has not been independently assessed.
 
-Standalone OS binaries require Godot export templates, which are not installed
-in this environment. The project and `.pck` are playable with the installed
-Godot executable. OS signing and distribution are separate from the migration.
+Standalone desktop binaries require platform export templates, which are not
+installed in this environment. The project and `.pck` are playable with the
+installed Godot executable. OS signing and distribution are separate from the migration.
+
+The official 4.7.2 single-threaded Web template is installed and the Web export
+has been tested locally inside both same-origin and cross-origin iframes with
+no browser console errors. The Pages workflow passes actionlint; headless and
+rendered game checks pass. The Pages workflow builds pull requests and deploys
+from `main`; see [Web deployment](WEB_DEPLOYMENT.md) for Pages setup and embedding.
 
 ## Dependencies and reference
 

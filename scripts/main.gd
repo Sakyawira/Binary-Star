@@ -23,10 +23,15 @@ const BACKGROUND_SIZE := Vector2(910, 910)
 @onready var history: Control = $DialogueHistory
 @onready var speaker: Label = $Speaker
 @onready var hint: Label = $Hint
-@onready var choices_box: VBoxContainer = $Choices
+@onready var choices_box: PanelContainer = $Choices
 @onready var continue_button: Button = $Continue
 @onready var replay_button: Button = $Replay
 @onready var mute_button: Button = $Toolbar/Mute
+@onready var ending: Control = $Ending
+@onready var ending_content: Control = $Ending/Content
+@onready var ending_title: Label = $Ending/Content/Title
+@onready var ending_kicker: Label = $Ending/Content/Kicker
+@onready var ending_content_origin: Vector2 = ending_content.position
 
 var typing := false
 var typing_elapsed := 0.0
@@ -35,6 +40,7 @@ var dialogue_start_pending := false
 var active_speaker := ""
 var active_emotion := "neutral"
 var stage_tween: Tween
+var ending_tween: Tween
 
 
 func _ready() -> void:
@@ -81,6 +87,7 @@ func advance() -> void:
 
 
 func restart() -> void:
+	_clear_ending()
 	typing = false
 	typing_elapsed = 0.0
 	reveal_delay = 0.0
@@ -181,18 +188,10 @@ func _resize_on_stage(node: Control, target_size: Vector2, target_position: Vect
 
 func _show_choices(choices: Array) -> void:
 	_clear_choices()
-	choices_box.show()
+	finish_typing()
+	choices_box.present(choices)
 	continue_button.hide()
-	hint.text = "Choose a response"
-	for choice in choices:
-		var button := Button.new()
-		button.text = choice.text
-		button.custom_minimum_size.y = 64
-		button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		button.pressed.connect(_choose.bind(int(choice.index)))
-		choices_box.add_child(button)
-	if choices_box.get_child_count() > 0:
-		choices_box.get_child(0).grab_focus()
+	hint.hide()
 
 
 func _choose(index: int) -> void:
@@ -202,16 +201,38 @@ func _choose(index: int) -> void:
 
 
 func _clear_choices() -> void:
-	for child in choices_box.get_children():
-		choices_box.remove_child(child)
-		child.queue_free()
-	choices_box.hide()
+	choices_box.clear()
+	hint.show()
 
 
 func _finish_story() -> void:
 	continue_button.hide()
-	hint.text = "End of conversation"
+	hint.hide()
+	ending_title.text = story.ending_title.capitalize() if not story.ending_title.is_empty() else "End of conversation"
+	ending_kicker.text = "ENDING UNLOCKED" if not story.ending_title.is_empty() else "THE END"
+	ending.modulate.a = 0.0
+	ending_content.position = ending_content_origin + Vector2(0, 18)
+	ending.show()
+	replay_button.modulate.a = 0.0
 	replay_button.show()
+	ending_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	for text_node in [dialogue, speaker, history]:
+		ending_tween.tween_property(text_node, "modulate:a", 0.0, 0.7)
+	ending_tween.tween_property(ending, "modulate:a", 1.0, 1.2).set_delay(0.25)
+	ending_tween.tween_property(ending_content, "position", ending_content_origin, 1.2).set_delay(0.25)
+	ending_tween.tween_property(replay_button, "modulate:a", 1.0, 0.8).set_delay(0.65)
+	ending_tween.chain().tween_callback(replay_button.grab_focus)
+
+
+func _clear_ending() -> void:
+	if ending_tween and ending_tween.is_valid():
+		ending_tween.kill()
+	ending.hide()
+	replay_button.release_focus()
+	replay_button.hide()
+	replay_button.modulate.a = 1.0
+	for text_node in [dialogue, speaker, history]:
+		text_node.modulate.a = 1.0
 
 
 func _toggle_audio(value: bool) -> void:
@@ -220,6 +241,7 @@ func _toggle_audio(value: bool) -> void:
 
 
 func _show_error(message: String) -> void:
+	_clear_ending()
 	typing = false
 	dialogue_completed.emit(active_speaker, active_emotion)
 	dialogue.text = "The story could not continue.\n" + message

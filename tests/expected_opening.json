@@ -1,0 +1,299 @@
+{
+  "opening_prompt": {
+    "text": "“Oh my god, what time is it for you?”",
+    "tags": [
+      "Aneska",
+      "HAPPY"
+    ]
+  },
+  "opening_responses": [
+    [
+      {
+        "text": "“hi! don't worry about it - did you have a good day?”",
+        "tags": [
+          "Yuvan",
+          "JOY"
+        ]
+      },
+      {
+        "text": "“Hi, sayang! It was a long day, but going out helped.”",
+        "tags": [
+          "Aneska",
+          "HAPPY"
+        ]
+      }
+    ],
+    [
+      {
+        "text": "“yeah it is quite late now, and I'm not feeling that great”",
+        "tags": [
+          "Yuvan",
+          "NEUTRAL"
+        ]
+      },
+      {
+        "text": "“Oh, Van… I’m sorry I wasn’t here.”",
+        "tags": [
+          "Aneska",
+          "NEUTRAL"
+        ]
+      }
+    ],
+    [
+      {
+        "text": "“It is 2 am here… our call was supposed to be at 11 pm. Have you just arrived at your place?”",
+        "tags": [
+          "Yuvan",
+          "ANGRY"
+        ]
+      },
+      {
+        "text": "“Yeah, I just got home. I’m sorry I kept you waiting… I didn’t realise how late it was.”",
+        "tags": [
+          "Aneska",
+          "NEUTRAL"
+        ]
+      }
+    ]
+  ],
+  "day_prompt": {
+    "text": "“How are you, though?”",
+    "tags": [
+      "Aneska",
+      "HAPPY"
+    ]
+  },
+  "day_responses": [
+    [
+      {
+        "text": "“It was pretty bad. But talking to you right now makes it better already.”",
+        "tags": [
+          "Yuvan",
+          "JOY"
+        ]
+      },
+      {
+        "text": "“Awww, okay.”",
+        "tags": [
+          "Aneska",
+          "HAPPY"
+        ]
+      }
+    ],
+    [
+      {
+        "text": "“I felt so... alone. Like nobody is on my side and helping me through things.”",
+        "tags": [
+          "Yuvan",
+          "NEUTRAL"
+        ]
+      },
+      {
+        "text": "“Right.”",
+        "tags": [
+          "Aneska",
+          "NEUTRAL"
+        ]
+      }
+    ],
+    [
+      {
+        "text": "“you know.... it was bad, but you not being here on time makes it even worse”",
+        "tags": [
+          "Yuvan",
+          "ANGRY"
+        ]
+      },
+      {
+        "text": "“Yeah, well, I was hanging out with my friends.”",
+        "tags": [
+          "Aneska",
+          "ANGRY"
+        ]
+      }
+    ]
+  ],
+  "doctor_and_topic": [
+    {
+      "text": "“So, what happened? what makes you feel that way?”",
+      "tags": [
+        "Aneska",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“I went to the Doctor, and ugh... he told me I should see the specialist just in case. He said it is probably nothing, but it is making me anxious”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“I think it should be fine. Anyway, do you wanna know what I heard from my friend who is an Astronaut?”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    }
+  ],
+  "topic_responses": [
+    [
+      {
+        "text": "“An astronaut? Okay, you’ve got me curious. What did they say?”",
+        "tags": [
+          "Yuvan",
+          "JOY"
+        ]
+      },
+      {
+        "text": "“So apparently… there’s something called a binary star.”",
+        "tags": [
+          "Aneska",
+          "HAPPY"
+        ]
+      }
+    ],
+    [
+      {
+        "text": "“I do wanna hear it, but... can we stay with this for a little longer? I’m still feeling anxious.”",
+        "tags": [
+          "Yuvan",
+          "NEUTRAL"
+        ]
+      },
+      {
+        "text": "“Oh—I thought you were done. So what else do you want to talk about in regards to that?”",
+        "tags": [
+          "Aneska",
+          "NEUTRAL"
+        ]
+      }
+    ],
+    [
+      {
+        "text": "“Seriously? I just told you what happened, and you’re already changing the subject?”",
+        "tags": [
+          "Yuvan",
+          "ANGRY"
+        ]
+      },
+      {
+        "text": "“Okay, okay. Just starts talking about it then... quick”",
+        "tags": [
+          "Aneska",
+          "ANGRY"
+        ]
+      }
+    ]
+  ],
+  "support_responses": [
+    [
+      {
+        "text": "“Hey, what's wrong? I feel like you are being a bit harsh towards me.”",
+        "tags": [
+          "Yuvan",
+          "NEUTRAL"
+        ]
+      },
+      {
+        "text": "“Sigh. I'm just realy tired. And I really don't feel like talking right now”",
+        "tags": [
+          "Aneska",
+          "SAD"
+        ]
+      }
+    ],
+    [
+      {
+        "text": "“I don't know. I'm just so anxious. It would make me feel better if you'd actually ask me follow up questions that makes me feel like you care about me”",
+        "tags": [
+          "Yuvan",
+          "NEUTRAL"
+        ]
+      },
+      {
+        "text": "“Sigh, okay. So what is it in particular making you feel anxious about this... whole deal?”",
+        "tags": [
+          "Aneska",
+          "NEUTRAL"
+        ]
+      }
+    ],
+    [
+      {
+        "text": "“What.... You sound like you don't really want to know.”",
+        "tags": [
+          "Yuvan",
+          "ANGRY"
+        ]
+      },
+      {
+        "text": "“No, I do want to know. Come on, just say what you need to say.”",
+        "tags": [
+          "Aneska",
+          "ANGRY"
+        ]
+      }
+    ]
+  ],
+  "reassurance": [
+    {
+      "text": "“It is just you know.... what if it is something that is sinister.”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“hey, you will be okay. you are young, and eats healthy. I don't think it will be anything serious.”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    }
+  ],
+  "day_prompt_after_unwell": {
+    "text": "“Was today that bad?”",
+    "tags": [
+      "Aneska",
+      "HAPPY"
+    ]
+  },
+  "return_to_astronaut": [
+    {
+      "text": "“It’s okay, let’s watch that movie tomorrow.”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    },
+    {
+      "text": "“Okay. What was it your astronaut friend told you?”",
+      "tags": [
+        "Yuvan",
+        "NEUTRAL"
+      ]
+    },
+    {
+      "text": "“So apparently… there’s something called a binary star.”",
+      "tags": [
+        "Aneska",
+        "HAPPY"
+      ]
+    }
+  ],
+  "relationship_return": {
+    "text": "“About earlier… I still want to talk about why you came home so late.”",
+    "tags": [
+      "Yuvan",
+      "NEUTRAL"
+    ]
+  },
+  "relationship_return_after_tired": {
+    "text": "“I know you’re tired. But you had the energy to talk to your friends, and I was waiting for you.”",
+    "tags": [
+      "Yuvan",
+      "ANGRY"
+    ]
+  }
+}

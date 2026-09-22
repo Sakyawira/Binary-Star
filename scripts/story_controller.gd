@@ -6,13 +6,27 @@ signal line_ready(text: String, tags: Array)
 signal choices_ready(choices: Array)
 signal finished
 signal phase_changed(phase: String)
+signal empathy_changed(value: int)
 signal failed(message: String)
 
 const STORY_PATH := "res://Assets/Ink/BinaryStar.json"
+const EMPATHY_VARIABLE := "aneska_empathy"
 var story: InkStory
 var phase := "day"
 var ended := false
 var elapsed_since_continue := 0.0
+var ending_title: String:
+	get:
+		if story == null:
+			return ""
+		var value: Variant = story.variables_state.get_variable("ending_title")
+		return str(value) if value != null else ""
+var aneska_empathy: int:
+	get:
+		if story == null:
+			return 0
+		var value: Variant = story.variables_state.get_variable(EMPATHY_VARIABLE)
+		return int(value) if value != null else 0
 
 
 func _process(delta: float) -> void:
@@ -25,8 +39,13 @@ func start(json_text: String = "") -> void:
 	if not JSON.parse_string(json_text) is Dictionary:
 		failed.emit("The compiled Ink story could not be read.")
 		return
+	if story != null:
+		story.remove_variable_observer(self, "_on_empathy_changed", EMPATHY_VARIABLE)
 	story = InkStory.new(json_text)
 	story.on_error.connect(_on_story_error)
+	if story.variables_state.get_variable(EMPATHY_VARIABLE) != null:
+		story.observe_variable(EMPATHY_VARIABLE, self, "_on_empathy_changed")
+	empathy_changed.emit(aneska_empathy)
 	story.bind_external_function("InitiateStorm", self, "initiate_storm")
 	story.bind_external_function("EndStorm", self, "end_storm")
 	story.bind_external_function("ChangeBackground", self, "change_background")
@@ -87,3 +106,7 @@ func change_background(place: String, time: String) -> String:
 
 func _on_story_error(message: String, _type: int) -> void:
 	failed.emit(message)
+
+
+func _on_empathy_changed(_variable_name: String, value: Variant) -> void:
+	empathy_changed.emit(int(value))

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#031333">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23031333'/%3E%3Ccircle cx='11' cy='16' r='5' fill='%23b7d9f4'/%3E%3Ccircle cx='23' cy='16' r='4' fill='%23e9b9df'/%3E%3C/svg%3E">
+    <meta name="description" content="A late-night conversation between Aneska and Yuvan. Choose your words in Binary Star, an interactive visual novel.">
+    <title>Binary Star</title>
+    <style>
+      :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #031333; color: #eeedf8; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; background: radial-gradient(ellipse at 50% 30%, #171c42, transparent 65%); }
+      main { width: min(1440px, 100%); margin: auto; padding: 32px clamp(12px, 3vw, 40px); }
+      header { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+      h1 { margin: 0; font-size: 22px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; }
+      p { margin: 0; color: #a9b1cc; font-size: 14px; line-height: 1.6; }
+      iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 1px solid #34416a; border-radius: 12px; background: #031333; }
+      iframe:fullscreen { height: 100%; border: 0; border-radius: 0; }
+      footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 18px; }
+      nav { display: flex; align-items: center; gap: 20px; }
+      a, button { color: #d3c9ee; font: inherit; font-size: 14px; }
+      a { text-underline-offset: 4px; }
+      button { border: 1px solid #535475; border-radius: 6px; padding: 9px 14px; background: #151d3a; cursor: pointer; }
+      button:hover { background: #26274a; }
+      a:focus-visible, button:focus-visible { outline: 2px solid #c7b8eb; outline-offset: 4px; }
+      @media (max-width: 600px) { main { padding-top: 24px; } header { gap: 8px; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Binary Star</h1>
+        <p>Two people. One late-night call.</p>
+      </header>
+      <iframe id="game" src="./game/" title="Play Binary Star" allow="autoplay; fullscreen"></iframe>
+      <footer>
+        <p>Click inside to play. ↑ ↓ to select a response · Enter to confirm.</p>
+        <nav aria-label="Game display">
+          <a href="./game/">Open game</a>
+          <button id="fullscreen" type="button" hidden>Full screen</button>
+        </nav>
+      </footer>
+    </main>
+    <script>
+      const game = document.getElementById('game');
+      const fullscreen = document.getElementById('fullscreen');
+      if (document.fullscreenEnabled && game.requestFullscreen) {
+        fullscreen.hidden = false;
+        fullscreen.addEventListener('click', async () => {
+          try {
+            await game.requestFullscreen();
+            game.focus();
+          } catch {
+            window.location.assign(game.src);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=24 format=3]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1"]
 [ext_resource type="Texture2D" path="res://Assets/Data/Backgrounds/0_Base.png" id="2"]
@@ -16,6 +16,45 @@
 [ext_resource type="AudioStream" path="res://Assets/MUSIC/aneska typing.mp3" id="14"]
 [ext_resource type="AudioStream" path="res://Assets/MUSIC/yuvan typing.mp3" id="15"]
 [ext_resource type="Script" path="res://scripts/dialogue_crawl.gd" id="16"]
+[ext_resource type="PackedScene" path="res://scenes/dialogue_choices.tscn" id="17"]
+[ext_resource type="Script" path="res://scripts/star_background.gd" id="18"]
+[ext_resource type="PackedScene" path="res://scenes/ending_reveal.tscn" id="19"]
+
+[sub_resource type="StyleBoxFlat" id="ReplayNormal"]
+bg_color = Color(0.09, 0.11, 0.23, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.52, 0.51, 0.72, 0.5)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="ReplayHover"]
+bg_color = Color(0.17, 0.16, 0.32, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.77, 0.73, 0.91, 0.85)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="ReplayFocus"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.77, 0.73, 0.91, 0.85)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
 
 [sub_resource type="Theme" id="Theme"]
 default_font = ExtResource("3")
@@ -50,7 +89,7 @@ offset_bottom = 1080.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
-script = ExtResource("4")
+script = ExtResource("18")
 frames = ExtResource("7")
 initial_animation = &"day"
 
@@ -63,7 +102,7 @@ offset_bottom = 1080.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
-script = ExtResource("4")
+script = ExtResource("18")
 frames = ExtResource("8")
 initial_animation = &"day"
 
@@ -129,14 +168,13 @@ theme_override_font_sizes/normal_font_size = 39
 scroll_active = false
 horizontal_alignment = 1
 
-[node name="Choices" type="VBoxContainer" parent="."]
+[node name="Choices" parent="." instance=ExtResource("17")]
 visible = false
 layout_mode = 0
-offset_left = 600.0
-offset_top = 510.0
-offset_right = 1320.0
-offset_bottom = 800.0
-theme_override_constants/separation = 12
+offset_left = 320.0
+offset_top = 480.0
+offset_right = 1600.0
+offset_bottom = 480.0
 
 [node name="Title" type="Label" parent="."]
 modulate = Color(0.75, 0.8, 0.92, 0.75)
@@ -194,16 +232,22 @@ focus_mode = 0
 text = "Continue  ›"
 flat = true
 
+[node name="Ending" parent="." instance=ExtResource("19")]
+
 [node name="Replay" type="Button" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 800.0
-offset_top = 1008.0
-offset_right = 1120.0
-offset_bottom = 1060.0
-focus_mode = 0
+offset_left = 780.0
+offset_top = 606.0
+offset_right = 1140.0
+offset_bottom = 674.0
+theme_override_colors/font_color = Color(0.91, 0.91, 0.98, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("ReplayNormal")
+theme_override_styles/hover = SubResource("ReplayHover")
+theme_override_styles/pressed = SubResource("ReplayHover")
+theme_override_styles/focus = SubResource("ReplayFocus")
 text = "Read again  ↺"
-flat = true
 
 [node name="Story" type="Node" parent="."]
 script = ExtResource("9")
@@ -228,6 +272,7 @@ yuvan_voice = ExtResource("15")
 [connection signal="dialogue_completed" from="." to="Audio" method="on_dialogue_completed"]
 [connection signal="sound_toggled" from="." to="Audio" method="set_muted"]
 [connection signal="pressed" from="Continue" to="." method="advance"]
+[connection signal="selected" from="Choices" to="." method="_choose"]
 [connection signal="pressed" from="Replay" to="." method="restart"]
 [connection signal="pressed" from="Toolbar/Restart" to="." method="restart"]
 [connection signal="toggled" from="Toolbar/Mute" to="." method="_toggle_audio"]
